@@ -1,0 +1,33 @@
+.button-demo .template .p-button.google {
+    background: linear-gradient(to left, var(--purple-600) 50%, var(--purple-700) 50%);
+    background-size: 200% 100%;
+    background-position: right bottom;
+    transition: background-position 0.5s ease-out;
+    color: #fff;
+    border-color: var(--purple-700);
+}
+.button-demo .template .p-button.google:hover {
+    background-position: left bottom;
+}
+.button-demo .template .p-button.github {
+    background: linear-gradient(to left, var(--surface-700) 50%, var(--surface-900) 50%);
+    background-size: 200% 100%;
+    background-position: right bottom;
+    transition: background-position 0.5s ease-out;
+    color: #fff;
+    border-color: var(--surface-900);
+}
+.button-demo .template .p-button.github:hover {
+    background-position: left bottom;
+}
+.button-demo .template .p-button.linkedin {
+    background: linear-gradient(to left, var(--blue-600) 50%, var(--blue-700) 50%);
+    background-size: 200% 100%;
+    background-position: right bottom;
+    transition: background-position 0.5s ease-out;
+    color: #fff;
+    border-color: var(--blue-700);
+}
+.button-demo .template .p-button.linkedin:hover {
+    background-position: left bottom;
+}

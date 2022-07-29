@@ -1,0 +1,88 @@
+{
+  "_access": [
+    {
+      "id": 1,
+      "name": "Nổi bật",
+      "Bgcolor": "bg-red-300",
+      "image": "https://res.cloudinary.com/asm-ph13269/image/upload/v1658199311/289643633_1435923423544944_5763541099371283352_n_p8de9c.png"
+    },
+    {
+      "id": 2,
+      "name": "Phụ kiện Apple",
+      "Bgcolor": "bg-red-200",
+      "image": "https://cdn2.cellphones.com.vn/180x/https://cdn.cellphones.com.vn/media/catalog/product/p/h/ph_ki_n_apple.png"
+    },
+    {
+      "id": 1,
+      "name": "Dán màn hình",
+      "Bgcolor": "bg-pink-300",
+      "image": "https://cdn2.cellphones.com.vn/180x/https://cdn.cellphones.com.vn/media/catalog/product/d/_/d_n_new.png"
+    },
+    {
+      "id": 2,
+      "name": "Ốp lưng- Bao da",
+      "Bgcolor": "bg-purple-300",
+      "image": "https://cdn2.cellphones.com.vn/180x/https://cdn.cellphones.com.vn/media/catalog/product/p/h/ph_ki_n_apple.png"
+    },
+    {
+      "id": 5,
+      "name": "Phụ kiện Apple",
+      "Bgcolor": "bg-red-200",
+      "image": "https://cdn2.cellphones.com.vn/180x/https://cdn.cellphones.com.vn/media/catalog/product/p/h/ph_ki_n_apple.png"
+    },
+    {
+      "id": 6,
+      "name": "Dán màn hình",
+      "Bgcolor": "bg-pink-300",
+      "image": "https://cdn2.cellphones.com.vn/180x/https://cdn.cellphones.com.vn/media/catalog/product/d/_/d_n_new.png"
+    },
+    {
+      "id": 7,
+      "name": "Ốp lưng- Bao da",
+      "Bgcolor": "bg-purple-300",
+      "image": "https://cdn2.cellphones.com.vn/180x/https://cdn.cellphones.com.vn/media/catalog/product/p/h/ph_ki_n_apple.png"
+    },
+    {
+      "id": 8,
+      "name": "Phụ kiện Apple",
+      "Bgcolor": "bg-red-200",
+      "image": "https://cdn2.cellphones.com.vn/180x/https://cdn.cellphones.com.vn/media/catalog/product/p/h/ph_ki_n_apple.png"
+    },
+    {
+      "id": 9,
+      "name": "Dán màn hình",
+      "Bgcolor": "bg-pink-300",
+      "image": "https://cdn2.cellphones.com.vn/180x/https://cdn.cellphones.com.vn/media/catalog/product/d/_/d_n_new.png"
+    },
+    {
+      "id": 10,
+      "name": "Ốp lưng- Bao da",
+      "Bgcolor": "bg-purple-300",
+      "image": "https://cdn2.cellphones.com.vn/180x/https://cdn.cellphones.com.vn/media/catalog/product/p/h/ph_ki_n_apple.png"
+    },
+    {
+      "id": 11,
+      "name": "Ốp lưng- Bao da",
+      "Bgcolor": "bg-purple-300",
+      "image": "https://cdn2.cellphones.com.vn/180x/https://cdn.cellphones.com.vn/media/catalog/product/p/h/ph_ki_n_apple.png"
+    },
+    {
+      "id": 12,
+      "name": "Phụ kiện Apple",
+      "Bgcolor": "bg-red-200",
+      "image": "https://cdn2.cellphones.com.vn/180x/https://cdn.cellphones.com.vn/media/catalog/product/p/h/ph_ki_n_apple.png"
+    },
+    {
+      "id": 13,
+      "name": "Dán màn hình",
+      "Bgcolor": "bg-pink-300",
+      "image": "https://cdn2.cellphones.com.vn/180x/https://cdn.cellphones.com.vn/media/catalog/product/d/_/d_n_new.png"
+    },
+    {
+      "id": 14,
+      "name": "Ốp lưng- Bao da",
+      "Bgcolor": "bg-purple-300",
+      "image": "https://cdn2.cellphones.com.vn/180x/https://cdn.cellphones.com.vn/media/catalog/product/p/h/ph_ki_n_apple.png"
+    }
+  ]
+}
