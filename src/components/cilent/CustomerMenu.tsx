@@ -43,7 +43,7 @@ type MenuItem = Required<MenuProps>["items"][number];
 
 
 const CustomerMenu = () => {
-  const { categories } = useAppSelector(state => state.homeReducer);
+  const { categories } = useAppSelector(state => state.cateReducer);
   const items: MenuItem[] = categories?.map((itemC: any, index: any) => (
     getItem(<Link to={`categories/${itemC?.slug}`}>{itemC?.cateName}</Link>, index, <LaptopOutlined />, [])
   ))

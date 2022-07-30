@@ -30,8 +30,6 @@ export const fetchHomeData = createAsyncThunk<
 >("home/fetchHomeData", async (_, { rejectWithValue }) => {
   try {
     const { data } = await getHomeData();
-    console.log("homedata", data);
-
     return data;
   } catch (error: any) {
     return rejectWithValue(error.response.data.error);

@@ -26,7 +26,7 @@ const productSlice = createSlice({
       state.isFetching = true;
     });
     builder.addCase(FetchProductList.fulfilled, (state, action) => {
-      state.isFetching = false;
+      state.isFetching = false;      
       state.products = action.payload;
     });
     builder.addCase(FetchProductList.rejected, (state, action) => {
@@ -52,8 +52,7 @@ const productSlice = createSlice({
     });
     builder.addCase(AsyncDeleteProduct.fulfilled, (state, action) => {
       state.isFetching = false;
-      console.log('load',state.products);
-      state.products = state.products.filter(item => item._id !== action.payload);
+      state.products =  state.products.filter(p => p._id !== action.payload._id);
     });
     builder.addCase(AsyncDeleteProduct.rejected, (state, action) => {
       state.isFetching = false;

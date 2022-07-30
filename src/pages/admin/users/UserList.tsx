@@ -1,22 +1,22 @@
 import { Button, message, Popconfirm, Space, Table, Tag } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
-import DataTable from "../../../components/admin/DataTable";
 import { pageTitle } from "../../../ultils";
-import { AsyncFetchUserList, AsyncDeleteUser } from "../../../app/stores/thunks/userThunk";
+import {  AsyncDeleteUser } from "../../../app/stores/thunks/userThunk";
 import { useAppDispatch, useAppSelector } from './../../../app/stores/hooks';
-
+import TableCustom from "../../../components/admin/DataTable";
 type Props = {};
 
 const UserList = (props: Props) => {
   const dispatch = useAppDispatch();
-  const { users, errorMessage, isFetching } = useAppSelector(state => state.userReducer);
+  const { users, errorMessage } = useAppSelector(state => state.userReducer);
+  console.log('userList',users);
+  
   React.useEffect(() => {
     document.title = "Admin | Users";
-    pageTitle("Danh sách người dùng");
-    dispatch(AsyncFetchUserList());
-   
-  }, [dispatch]);
+    pageTitle("Danh sách người dùng")
+
+  }, []);
   const columnUserList: any = [
     {
       title: "IMAGE",
@@ -24,8 +24,24 @@ const UserList = (props: Props) => {
       key: "image",
       render: (_: any, record: any) => (
         <Link to={`${record?._id}/edit`}>
-          <img width="40px" src={record.image ?? "https://banner2.cleanpng.com/20180428/sue/kisspng-pittman-animal-hospital-user-computer-icons-avatar-5ae4937a25a0b7.9399757315249294021541.jpg"} alt="" />
+          <img width="40px" src={record.image  ?? "https://banner2.cleanpng.com/20180428/sue/kisspng-pittman-animal-hospital-user-computer-icons-avatar-5ae4937a25a0b7.9399757315249294021541.jpg"} alt="" />
         </Link>
+      ),
+    },
+    {
+      title: "EMAIL",
+      dataIndex: "email",
+      key: "email",
+      render: (_: any, record: any) => (
+        <div className="overflow-auto surface-overlay">
+          <Link
+            to={`${record?._id}/edit`}
+            style={{ color: "#262626", height: "10px" }}
+            className="hover:text-red-700"
+          >
+            {record?.email}
+          </Link>
+        </div>
       ),
     },
     {
@@ -34,10 +50,10 @@ const UserList = (props: Props) => {
       key: "status",
       render: (_: any, { status }: any) => (
         <Tag
-          color={status == "active" ? "green" : "red"}
-          key={status >= "active" ? "geekblue" : "blue"}
+          color={status == "active" ? "red" : "blue"}
+          key={status >= "active" ? "red" : "blue"}
         >
-          {status == "active" ? "active" : "hidden"}
+          {status == "active" ?  "inactive": "active" }
         </Tag>
       ),
     },
@@ -102,34 +118,36 @@ const UserList = (props: Props) => {
   const data: Props[] = users.map((item, index) => {
     return {
       key: index + 1,
-      _id: item._id,
-      username: item.username,
-      image: item.image,
-      phoneNumber: item.phoneNumber,
-      address: item.address,
-      role: item.role
+      _id: item?._id,
+      username: item?.username,
+      email: item?.email,
+      image: item?.image[0]?.url,
+      phoneNumber: item?.phoneNumber,
+      address: item?.address,
+      role: item?.role
     }
   });
 
 
-  const deleteUser = (id: string | undefined) => {
-    dispatch(AsyncDeleteUser(id)).unwrap().then((data) => {
-      message.success("Delete user success")
-    }).catch((error) => {
-      errorMessage ? message.error(errorMessage) : message.error(error.message)
-    });
+  const deleteUser = (_id: string | undefined) => {
+    dispatch(AsyncDeleteUser(_id)).unwrap()
+      .then((data) => {
+        message.success("Delete user success")
+      }).catch(() => {
+        message.error(errorMessage)
+      });
   };
 
 
-return (
-  <>
-  <Button type="primary" style={{ marginBottom: "20px" }}>
-    <Link to="add">Add Users</Link>
-  </Button>
-  <Table columns={columnUserList} dataSource={data} />
+  return (
+    <>
+      <Button type="primary" style={{ marginBottom: "20px" }}>
+        <Link to="add">Add Users</Link>
+      </Button>
+      <TableCustom column={columnUserList} data={data} />
 
-</>
-)
+    </>
+  )
 
 };
 export default UserList;

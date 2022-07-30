@@ -12,7 +12,7 @@ type Props = {};
 const Detail = (props: Props) => {
   const { slug } = useParams();
   const dispatch = useAppDispatch();
-  const { products } = useAppSelector(state => state.homeReducer);
+  const { products } = useAppSelector(state => state.productReducer);
   const productDetail = products.find((item) => item.slug === slug);
   const [quantity, setQuantity] = React.useState(0)
   document.title = `${productDetail?.name}`;

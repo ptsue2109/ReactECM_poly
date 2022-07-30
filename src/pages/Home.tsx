@@ -10,7 +10,9 @@ type Props = {};
 
 const Home = (props: Props) => {
   const dispatch = useAppDispatch();
-  const { products,newProducts , brands} = useAppSelector(state => state.homeReducer);
+  const { brands } = useAppSelector((state) => state.brandReducer);
+  const { products } = useAppSelector((state) => state.productReducer);
+  const { newProducts } = useAppSelector((state) => state.homeReducer);
   React.useEffect(() => {
     document.title = "CELLPHONES";
   }, [dispatch]);
@@ -18,10 +20,19 @@ const Home = (props: Props) => {
   return (
     <>
       <Navbar sliderStatus={false} />
-      <Brands data={brands}/>
-      <Card className="mt-5"><h2 className="mx-3 my-5">Điện thoại nổi bật</h2><CardProduct data={products} /></Card>
-      <Card className="w-full mt-5"><h2 className="mx-3 my-5">Sản phẩm mới</h2><CardProduct data={newProducts} /></Card>
-      <Card className="w-full mt-5"><CardProduct data={products} /></Card>
+      <Brands data={brands} />
+      <Card className="mt-5">
+        <h2 className="mx-3 my-5">Điện thoại nổi bật</h2>
+        <CardProduct data={products} />
+      </Card>
+      <Card className="w-full mt-5">
+        <h2 className="mx-3 my-5">Sản phẩm mới</h2>
+        <CardProduct data={newProducts} />
+      </Card>
+      <Card className="w-full mt-5">
+        <h2 className="mx-3 my-5">Sản phẩm mới</h2>
+        <CardProduct data={products} />
+      </Card>
 
       <div className="border-black-custom">
         <h2 className="mx-3 my-5">Phụ kiện</h2>
@@ -32,4 +43,3 @@ const Home = (props: Props) => {
 };
 
 export default Home;
-

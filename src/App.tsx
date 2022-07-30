@@ -2,7 +2,13 @@ import React, { useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { ScrollTop } from "primereact/scrolltop";
 import { useAppDispatch, useAppSelector } from "./app/stores/hooks";
-import { fetchHomeData } from "./app/stores/slices/homeSlice";
+ import { fetchHomeData } from "./app/stores/slices/homeSlice";
+import {FetchProductList} from "./app/stores/thunks/productThunk";
+import {FetchCateList} from "./app/stores/thunks/cateThunk";
+import {ListBrands}from "./app/stores/thunks/brandThunk";
+import {AsyncFetchUserList} from "./app/stores/thunks/userThunk";
+import { Spin } from "antd"; 
+import styled from "styled-components";
 const CustomerLayout = React.lazy(() => import("./components/themes/custommer/CustomerLayout"));
 const AdminLayout = React.lazy(() => import("./components/themes/admin/AdminLayout"));
 
@@ -34,15 +40,31 @@ const ProductListClient = React.lazy(() => import("./pages/products/ProuductList
 
 
 function App() {
+  const LoadingStyle = styled.div`
+  position: fixed;
+  width: 100%;
+  height: 100rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+const Loading = (
+  <LoadingStyle>
+    <Spin size="large" />
+  </LoadingStyle>
+);
   const dispatch = useAppDispatch();
   const { userInfo } = useAppSelector((state) => state.authReducer);
   React.useEffect(() => {
-    dispatch(fetchHomeData())
+    dispatch(fetchHomeData());
+    dispatch(FetchProductList());
+    dispatch(FetchCateList());
+    dispatch(ListBrands());
+    dispatch(AsyncFetchUserList());
   }, [dispatch])
   return (
     <div className="max-w-full overflow-x-hidden">
-      <ScrollTop threshold={20} />
-      <Routes>
+      <Routes >
         <Route path="/" element={<CustomerLayout />}>
           <Route index element={<Home />} />
           <Route path="tim-kiem/" element={<Search />} />
@@ -85,6 +107,8 @@ function App() {
         <Route path="/register" element={<Register user={userInfo} />} />
         <Route path="*" element={<ErrorBound />} />
       </Routes>
+      <ScrollTop threshold={20} />
+
     </div>
   );
 }

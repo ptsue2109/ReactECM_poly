@@ -2,7 +2,8 @@ import React from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Form, Button } from "antd";
 import { pageTitle } from '../../../ultils';
-import { categories } from "../../../../db.json"
+import { useAppSelector } from "../../../app/stores/hooks";
+
 import CateForm from "../../../components/admin/CateForm";
 interface Props { }
 
@@ -10,7 +11,7 @@ const CateEdit = (props: Props) => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const [fileList, setFileList] = React.useState<any>();
-
+const {categories} = useAppSelector(state => state.homeReducer)
   const { id } = useParams();
   const category = categories.find(item => item._id === id);
   console.log(category);

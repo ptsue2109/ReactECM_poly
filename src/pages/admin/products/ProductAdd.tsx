@@ -18,12 +18,11 @@ const ProductAdd = (props: Props) => {
     pageTitle("Thêm sản phẩm");
   }, []);
 
-  const onFinish = async (data: any) => {
+  const onFinish = (data: any) => {
     data.image = fileList;
-    dispatch(AsyncCreateProduct(data))
-
+    dispatch(AsyncCreateProduct(data)).unwrap()
       .then(() => {
-        message.success("Update product success", 2, () => {
+        message.success("Add product success", 2, () => {
           navigate("/admin/products");
         });
       })

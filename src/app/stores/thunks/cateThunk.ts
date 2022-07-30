@@ -36,3 +36,13 @@ export const FetchCateList = createAsyncThunk<any, void, { rejectValue: string }
       return rejectWithValue(error.response);
     }
   });
+
+  export const RemoveCate = createAsyncThunk<any, string | undefined, { rejectValue: string }>("categories/RemoveCate",
+  async (id, { rejectWithValue }) => {
+    try {
+      const { data } = await removeCate(id);
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data.message);
+    }
+  });

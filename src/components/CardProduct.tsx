@@ -6,75 +6,74 @@ import { currencyFm } from "../ultils";
 import { Empty } from "antd";
 type Props = {};
 
-const CardProduct = ({ data}: any) => {
+const CardProduct = ({ data }: any) => {
   console.log("data", data);
   return (
+   
+      <div className="flex justify-content-between">
+        <div className="text-color">
+          <Products>
+            {data ? (
+              <>
+                {data.map((item: any, index: any) => (
+                  <ProductInfo key={index}>
+                    <ProductItem>
+                      <ProImage className="">
+                        <Link to={`/products/${item?.slug}`}>
+                          <img
+                            src={item?.image[0]?.url! ?? ""}
+                            className="vertical-align-baseline"
+                            style={{ width: "150px", margin: "25px 0px" }}
+                          />
+                        </Link>
+                      </ProImage>
+                      <ProductContent>
+                        <div className="product__name h-15rem px-2 white-space-wrap overflow-hidden text-overflow-ellipsis">
+                          <Link
+                            to={`/products/${item?.slug}`}
+                            className="text-sm text-color hover:text-red-600"
+                          >
+                            {item?.name}
+                          </Link>
+                        </div>
+                        <div className="block">
+                          <div className="box-info__box-price p-1">
+                            <Products className="justify-content-between px-2">
+                              <p className="product__price--show text-red-600">
+                                {currencyFm.format(item?.cost)}
+                              </p>
+                              <p className="product__price--through line-through text-700">
+                                {currencyFm.format(item?.cost)}
+                              </p>
+                            </Products>
 
-        <>
-          <div className="flex justify-content-between">
-            <div className="text-color">
-              {data && data.length > 1 ? (
-                <Products>
-                  {data &&
-                    data.map((item: any, index: any) => (
-                      <ProductInfo key={index}>
-                        <ProductItem>
-                          <ProImage className="">
-                            <Link to={`/products/${item?.slug}`}>
-                              <img
-                                src={item?.image[0]?.url! ?? ""}
-                                className="vertical-align-baseline"
-                                style={{ width: "150px", margin: "25px 0px" }}
+                            <Promo>
+                              Thu cũ đổi mới - Trợ giá đến 300.000đ
+                            </Promo>
+                            <PricePercnet>Giảm&nbsp;40%</PricePercnet>
+
+                            <ProductRating>
+                              <Rate
+                                allowHalf
+                                defaultValue={5}
+                                style={{ fontSize: "15px" }}
+                                disabled
                               />
-                            </Link>
-                          </ProImage>
-                          <ProductContent>
-                            <div className="product__name h-15rem px-2 white-space-wrap overflow-hidden text-overflow-ellipsis">
-                              <Link
-                                to={`/products/${item?.slug}`}
-                                className="text-sm text-color hover:text-red-600"
-                              >
-                                {item?.name}
-                              </Link>
-                            </div>
-                            <div className="block">
-                              <div className="box-info__box-price p-1">
-                                <Products className="justify-content-between px-2">
-                                  <p className="product__price--show text-red-600">
-                                    {currencyFm.format(item?.cost)}
-                                  </p>
-                                  <p className="product__price--through line-through text-700">
-                                    {currencyFm.format(item?.cost)}
-                                  </p>
-                                </Products>
+                              <span>163 đánh giá</span>
+                            </ProductRating>
+                          </div>
+                        </div>
+                      </ProductContent>
+                    </ProductItem>
+                  </ProductInfo>
+                ))}
 
-                                <Promo>
-                                  Thu cũ đổi mới - Trợ giá đến 300.000đ
-                                </Promo>
-                                <PricePercnet>Giảm&nbsp;40%</PricePercnet>
-
-                                <ProductRating>
-                                  <Rate
-                                    allowHalf
-                                    defaultValue={5}
-                                    style={{ fontSize: "15px" }}
-                                    disabled
-                                  />
-                                  <span>163 đánh giá</span>
-                                </ProductRating>
-                              </div>
-                            </div>
-                          </ProductContent>
-                        </ProductItem>
-                      </ProductInfo>
-                    ))}
-                </Products>
-              ) : (
-                <Empty />
-              )}
-            </div>
-          </div>
-        </>
+              </>
+            ) :  <Empty />}
+          </Products>
+        </div>
+      </div>
+  
   );
 };
 

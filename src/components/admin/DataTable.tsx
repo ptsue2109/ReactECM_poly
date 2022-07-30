@@ -11,7 +11,7 @@ interface DataTableProps {
     loading?: boolean;
 }
 
-const DataTable = ({ data, column, scrollWidth, size = "small", loading = false }: DataTableProps) => {
+const DataTable = ({ data, column, scrollWidth, size = "small", loading }: DataTableProps) => {
     return (
         <>
             <TableWrapper>

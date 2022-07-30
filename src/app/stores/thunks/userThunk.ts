@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { getAllUser, createUser ,removeUser} from "../../services/user.service";
+import { getAllUser, createUser, removeUser, updateUser } from "../../services/user.service";
 
 export const AsyncFetchUserList = createAsyncThunk<any[], void, { rejectValue: string }>("users/AsyncFetchUserList",
   async (_, { rejectWithValue }) => {
@@ -11,22 +11,42 @@ export const AsyncFetchUserList = createAsyncThunk<any[], void, { rejectValue: s
     }
   });
 
-  // export const AsyncDeleteUser = createAsyncThunk<any[], string | undefined, { rejectValue: string }>("users/AsyncDeleteUser",
-  // async (_id, { rejectWithValue }) => {
-  //   try {
-  //     const { data } = await removeUser(_id);
-  //     return data;
-  //   } catch (error: any) {
-  //     return rejectWithValue(error.response.data.message);
-  //   }
-  // });
+// export const AsyncDeleteUser = createAsyncThunk<any[], string | undefined, { rejectValue: string }>("users/AsyncDeleteUser",
+// async (_id, { rejectWithValue }) => {
+//   try {
+//     const { data } = await removeUser(_id);
+//     return data;
+//   } catch (error: any) {
+//     return rejectWithValue(error.response.data.message);
+//   }
+// });
+export const CreateUsers = createAsyncThunk<any, any, { rejectValue: string }>("users/CreateUsers",
+  async (userData, { rejectWithValue }) => {
+    try {
+      const { data } = await (createUser(userData));
+      return data.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  });
 
-  export const AsyncDeleteUser = createAsyncThunk<any, string | undefined, { rejectValue: string }>("user/AsyncRemoveUser",
+export const AsyncDeleteUser = createAsyncThunk<any, string | undefined, { rejectValue: string }>("user/AsyncRemoveUser",
   async (id, { rejectWithValue }) => {
     try {
       const { data } = await removeUser(id);
       return data;
     } catch (error: any) {
+      return rejectWithValue(error.response.data.message);
+    }
+  });
+
+export const UpdateUser = createAsyncThunk<any, any, { rejectValue: string }>("users/UpdateUser",
+  async (userData, { rejectWithValue }) => {
+    try {
+      const { data } = await updateUser(userData);
+      return data;
+    } catch (error: any) {
+      console.log('error', error);
       return rejectWithValue(error.response.data.message);
     }
   });

@@ -1,6 +1,7 @@
 import {
     AsyncCreateBrand,
-    fetchProductByBrand
+    fetchProductByBrand,
+    ListBrands
   } from "../thunks/brandThunk";
   import { createSlice } from "@reduxjs/toolkit";
   
@@ -51,7 +52,18 @@ import {
         state.isFetching = false;
         state.errorMessage = action.payload;
       });
-
+      //list
+      builder.addCase(ListBrands.pending, (state) => {
+        state.isFetching = true;
+      });
+      builder.addCase(ListBrands.fulfilled, (state, action) => {
+        state.isFetching = false;      
+        state.brands = action.payload;
+      });
+      builder.addCase(ListBrands.rejected, (state, action) => {
+        state.isFetching = false;
+        state.errorMessage = action.payload;
+      });
     },
   });
   

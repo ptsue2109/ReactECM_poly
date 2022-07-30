@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from './../../app/stores/hooks';
 type Props = {}
 
 const ProuductList = (props: Props) => {
-    const {products} = useAppSelector(state => state.homeReducer)
+    const {products} = useAppSelector(state => state.productReducer)
   return (
     <div>
          <Card className="w-full mt-5"><CardProduct data={products}/></Card>

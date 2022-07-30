@@ -1,23 +1,26 @@
 import React from "react";
-import { Link ,useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button, Space, Table, Tag, Popconfirm, message } from "antd";
 import { currencyFm, pageTitle } from "../../../ultils";
 import TableCustom from "../../../components/admin/DataTable";
 import { useAppSelector, useAppDispatch } from "../../../app/stores/hooks";
-import { AsyncDeleteProduct, FetchProductList } from "../../../app/stores/thunks/productThunk";
+import {
+  AsyncDeleteProduct,
+  FetchProductList,
+} from "../../../app/stores/thunks/productThunk";
 
 interface DataType {}
 
-
 const ProductList = (props: DataType) => {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   React.useEffect(() => {
     document.title = "Admin | Products";
     pageTitle("Danh sách sản phẩm");
-    dispatch(FetchProductList())
+    dispatch(FetchProductList());
   }, [dispatch]);
-
+  const { errorMessage,products ,isFetching,isErr} = useAppSelector((state) => state.productReducer);
+ 
   const columnsProList: any = [
     {
       title: "IMAGE",
@@ -85,27 +88,11 @@ const ProductList = (props: DataType) => {
       title: "CATEGORY",
       dataIndex: "categoryId",
       key: "categoryId",
-      render: (_: any, record: any) => (
-        <Link
-          className="text-color hover:text-red-700"
-          to={`/admin/categories/${record?._id}/edit`}
-        >
-          {record?.categoryId}
-        </Link>
-      ),
     },
     {
       title: "BRANDS",
       dataIndex: "brandId",
       key: "brandId",
-      render: (_: any, record: any) => (
-        <Link
-          className="text-color hover:text-red-700"
-          to={`/admin/brands/${record?._id}/edit`}
-        >
-          {record?.brandId}
-        </Link>
-      ),
     },
     {
       title: "ACTION",
@@ -131,26 +118,28 @@ const ProductList = (props: DataType) => {
       ),
     },
   ];
-  const { products } = useAppSelector((state) => state.homeReducer);
-  const {errorMessage} =useAppSelector((state) => state.productReducer);
-  const data: DataType[] = products.map((item, index) => {
+
+  const data: DataType[] = products?.map((item, index) => {
     return {
       key: index + 1,
-      _id: item._id,
-      name: item.name,
-      isFeature: item.isFeature,
-      cost: item.cost,
-      image: item.image[0]?.url,
+      _id: item?._id,
+      name: item?.name,
+      isFeature: item?.isFeature,
+      cost: item?.cost,
+      image: item?.image[0]?.url,
       categoryId: item?.categoryId?.cateName,
       brandId: item?.brandId?.brandName,
       stock: item?.stock,
     };
   });
 
-  const confirmDelete = (_id: string) => {
-    dispatch(AsyncDeleteProduct(_id)).unwrap().
-    then(() => { message.success("Update product success", 2, () => { navigate("/admin/products") }) })
-    .catch((error) => message.error(errorMessage));
+  const confirmDelete = (_id: string ) => {
+    dispatch(AsyncDeleteProduct(_id)).unwrap()
+      .then(() => {
+        message.success("Delete product success");
+      })
+      .catch((error) => {message.error(errorMessage);
+      });
   };
 
   return (
@@ -158,11 +147,8 @@ const ProductList = (props: DataType) => {
       <Button type="primary" style={{ marginBottom: "20px" }}>
         <Link to="add">Add Product</Link>
       </Button>
-      <TableCustom column={columnsProList} data={data} />
+      <TableCustom column={columnsProList} data={data}/>
     </>
   );
 };
 export default ProductList;
-function confirmDelete(_id: any) {
-  throw new Error("Function not implemented.");
-}

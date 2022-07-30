@@ -4,33 +4,35 @@ import { getAll, createProducts, removeProduct , updateProduct} from "../../serv
 export const FetchProductList = createAsyncThunk<any, void, { rejectValue: string }>("products/FetchProductList",
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await getAll();
-      return data.data;
+      const { data} = await getAll();
+      return data.items;
     } catch (error: any) {
       return rejectWithValue(error.response.data.message);
     }
   });
 
-export const AsyncCreateProduct = createAsyncThunk<any, any, { rejectValue: string }>("products/AsyncCreateProduct",
+export const AsyncCreateProduct = createAsyncThunk<any, any, { rejectValue: string }>("products/CreateProduct",
   async (productData, { rejectWithValue }) => {
     try {
-      const { data } = await createProducts(productData);
-      console.log(data.data);
-      
+      const {data} = await createProducts(productData);
       return data.data;
     } catch (error: any) {
+      console.log('errorMessage ',error.response.data.message);
+      
       return rejectWithValue(error.response.data.message);
     }
   });
 
 
-  export const AsyncDeleteProduct = createAsyncThunk<any, string | undefined, { rejectValue: string }>
-    ("products/AsyncDeleteProduct",async (_id, { rejectWithValue }) => {
+  export const AsyncDeleteProduct = createAsyncThunk<any, string, { rejectValue: string }>
+    ("products/AsyncDeleteProduct", async (_id, { rejectWithValue }) => {
     try {
-      const { data } = await removeProduct(_id);
-      return data.data;
+      const {data}  = await removeProduct(_id);
+      console.log('item deleted',data);
+      return data;
     } catch (error: any) {
-      return rejectWithValue(error.response.data.message);
+      console.log('errorMessage ',error);
+      return rejectWithValue(error);
     }
   });
 

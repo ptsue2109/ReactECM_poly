@@ -12,9 +12,11 @@ const ProductEdit = (props: Props) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [fileList, setFileList] = React.useState<any[]>([]);
-  const { products } = useAppSelector(state => state.homeReducer);
+
+  const { products } = useAppSelector(state => state.productReducer);
   const { id } = useParams();
   const product = products.find((item) => item._id === id);
+  
   React.useEffect(() => {
     document.title = `Admin | Edit ${product?.name}`;
     pageTitle(`Edit Product`);

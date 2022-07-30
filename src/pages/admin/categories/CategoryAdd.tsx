@@ -1,9 +1,9 @@
 import React from 'react'
 import { Link, useNavigate } from "react-router-dom";
-import { Form, Button } from "antd";
+import { Form, Button, message } from "antd";
 import { pageTitle } from '../../../ultils'
 import CateForm from './../../../components/admin/CateForm';
-import { useAppDispatch } from './../../../app/stores/hooks';
+import { useAppDispatch, useAppSelector } from './../../../app/stores/hooks';
 import {AsyncCreateCategories} from "../../../app/stores/thunks/cateThunk"
 type Props = {}
 
@@ -11,15 +11,23 @@ const CategoryAdd = (props: Props) => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-
   const [fileList, setFileList] = React.useState<any[]>([]);
+
+  const { errorMessage } = useAppSelector((state) => state.cateReducer);
+
   React.useEffect(() => {
     document.title = "Admin | Add Cate"
     pageTitle('Add Category')
   }, []);
   const onFinish = async (data: any) => {
     data.image= fileList;
-    dispatch(AsyncCreateCategories(data))
+    dispatch(AsyncCreateCategories(data)).unwrap()
+    .then(() => {
+      message.success("Add category success", 2, () => {
+        navigate("/admin/categories");
+      });
+    })
+    .catch((error) =>{errorMessage ? message.error(errorMessage) : error});
   };
 
   const onReset = () => {

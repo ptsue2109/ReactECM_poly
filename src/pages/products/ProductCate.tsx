@@ -10,6 +10,8 @@ const ProductCate = (props: Props) => {
   const dispatch = useAppDispatch();
   const { slug } = useParams();
   const {  category , products} = useAppSelector((state) => state.cateReducer);
+  console.log('product cate ',{  category , products});
+  
   React.useEffect(() => {
     dispatch(fetchAsyncCategorySelected(slug))
   }, [dispatch, slug]);

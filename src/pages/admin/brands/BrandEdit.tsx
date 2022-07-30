@@ -2,8 +2,8 @@ import React from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Form, Button } from "antd";
 import { pageTitle } from '../../../ultils';
-import { brands } from "../../../../db.json"
 import BrandForm from "../../../components/admin/BrandForm";
+import { useAppSelector } from "../../../app/stores/hooks";
 interface Props { }
 
 const BrandEdit = (props: Props) => {
@@ -12,6 +12,7 @@ const BrandEdit = (props: Props) => {
   const [fileList, setFileList] = React.useState<any>();
 
   const { id } = useParams();
+  const {brands} = useAppSelector(state => state.homeReducer)
   const brand = brands.find(item => item._id === id);
   console.log(brand);
 

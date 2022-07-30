@@ -1,6 +1,6 @@
 import {
   FetchCateList,
-  fetchAsyncCategorySelected
+  fetchAsyncCategorySelected,RemoveCate
 } from "../thunks/cateThunk";
 import { createSlice } from "@reduxjs/toolkit";
 
@@ -24,6 +24,7 @@ const categorySlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    //list
     builder.addCase(FetchCateList.pending, (state) => {
       state.isFetching = true;
     });
@@ -46,6 +47,19 @@ const categorySlice = createSlice({
       state.products = action.payload.products;
     });
     builder.addCase(fetchAsyncCategorySelected.rejected, (state, action) => {
+      state.isFetching = false;
+      state.errorMessage = action.payload;
+    });
+    
+    //remove
+    builder.addCase(RemoveCate.pending, (state) => {
+      state.isFetching = true;
+    });
+    builder.addCase(RemoveCate.fulfilled, (state, action) => {
+      state.isFetching = false;
+      state.categories = state.categories.filter(item => item._id !== action.payload._id);
+    });
+    builder.addCase(RemoveCate.rejected, (state, action) => {
       state.isFetching = false;
       state.errorMessage = action.payload;
     });

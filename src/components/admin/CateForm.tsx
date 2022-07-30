@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from "styled-components";
 import { BsPlus } from "react-icons/bs";
-import { Button, Card, Form, FormInstance, Input, InputNumber, message, Modal, Select, Tabs, Upload } from "antd";
+import { Button, Card, Form, FormInstance, Input, message, Modal, Select, Tabs, Upload } from "antd";
 const { TextArea } = Input;
 const { TabPane } = Tabs;
 
@@ -54,7 +54,7 @@ const CateForm = ({ fileList, form, onFinish, setFileList, onReset, edit = false
     };
 
     const handleChange = async (data: any) => {
-        const accepts = ["image/gif", "image/jpeg", "image/png"];
+        const accepts = ["image/gif", "image/jpeg", "image/png","image/webp"];
         const extensionFile = accepts.map((item) => item.split("image/")[1]);
         if (data.file.size / 1024 / 1024 > 2) {
             message.error("Kích thước ảnh tối đa 2MB");

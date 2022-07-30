@@ -1,5 +1,5 @@
 import BaseURL from "./baseURL.service";
-export const getAll = () => {
+export const getAll = async() => {
     const url = 'products';
     return BaseURL.get(url);
  }

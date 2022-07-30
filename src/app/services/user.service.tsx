@@ -13,3 +13,8 @@ export const getAllUser = () => {
    const url = `/users/remove-user/${_id}`;
    return BaseURL.delete(url);
 }
+
+export const updateUser = async(data: any) => {
+   const url = `/users/update-user/${data._id}`
+   return BaseURL.patch(url, data)
+};
