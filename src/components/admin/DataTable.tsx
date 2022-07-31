@@ -15,7 +15,7 @@ const DataTable = ({ data, column, scrollWidth, size = "small", loading }: DataT
     return (
         <>
             <TableWrapper>
-                <Table
+                <Table 
                     dataSource={data?.map((item, index) => {
                         return { ...item, key: index + 1 };
                     })}

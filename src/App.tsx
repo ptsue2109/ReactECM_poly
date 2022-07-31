@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { ScrollTop } from "primereact/scrolltop";
 import { useAppDispatch, useAppSelector } from "./app/stores/hooks";
- import { fetchHomeData } from "./app/stores/slices/homeSlice";
-import {FetchProductList} from "./app/stores/thunks/productThunk";
-import {FetchCateList} from "./app/stores/thunks/cateThunk";
-import {ListBrands}from "./app/stores/thunks/brandThunk";
-import {AsyncFetchUserList} from "./app/stores/thunks/userThunk";
-import { Spin } from "antd"; 
-import styled from "styled-components";
+import { fetchHomeData } from "./app/stores/slices/homeSlice";
+import { FetchProductList } from "./app/stores/thunks/productThunk";
+import { FetchCateList } from "./app/stores/thunks/cateThunk";
+import { ListBrands } from "./app/stores/thunks/brandThunk";
+import { AsyncFetchUserList } from "./app/stores/thunks/userThunk";
+import { AsyncFetchSliders } from "./app/stores/thunks/sliderThunk";
 const CustomerLayout = React.lazy(() => import("./components/themes/custommer/CustomerLayout"));
 const AdminLayout = React.lazy(() => import("./components/themes/admin/AdminLayout"));
 
@@ -37,31 +36,22 @@ const SliderEdit = React.lazy(() => import("./pages/admin/sliders/SlidersEdit"))
 const ProductByCate = React.lazy(() => import("./pages/products/ProductCate"));
 const ProductBrand = React.lazy(() => import('./pages/products/ProductBrand'));
 const ProductListClient = React.lazy(() => import("./pages/products/ProuductList"))
-
+const CartItem = React.lazy(() => import("./pages/Cart"));
 
 function App() {
-  const LoadingStyle = styled.div`
-  position: fixed;
-  width: 100%;
-  height: 100rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-const Loading = (
-  <LoadingStyle>
-    <Spin size="large" />
-  </LoadingStyle>
-);
   const dispatch = useAppDispatch();
   const { userInfo } = useAppSelector((state) => state.authReducer);
+
   React.useEffect(() => {
     dispatch(fetchHomeData());
     dispatch(FetchProductList());
     dispatch(FetchCateList());
     dispatch(ListBrands());
     dispatch(AsyncFetchUserList());
-  }, [dispatch])
+    dispatch(AsyncFetchSliders())
+  }, [dispatch]);
+
+
   return (
     <div className="max-w-full overflow-x-hidden">
       <Routes >
@@ -72,6 +62,7 @@ const Loading = (
           <Route path="products" element={<ProductListClient />} />
           <Route path="categories/:slug" element={<ProductByCate />} />
           <Route path="brands/:slug" element={<ProductBrand />} />
+          <Route path="cart" element={<CartItem />} />
         </Route>
 
         <Route path="admin" element={<AdminLayout />}>

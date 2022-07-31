@@ -34,9 +34,9 @@ const Login = ({ user }: Props) => {
 
   return (
     <>
-      <div className="card h-full">
-        <div className="flex align-content-center justify-content-center card-container mt-7 ">
-          <div className="surface-card p-4 shadow-2 border-round w-full lg:w-6 ">
+      
+        <div className="flex align-content-center justify-content-center  mt-7 ">
+          <div className="surface-card p-4 shadow-4 border-round w-full lg:w-6 mb-5 ">
             <div className="text-900 text-3xl font-medium mb-3">Login</div>
             <Form
               layout="vertical"
@@ -100,7 +100,7 @@ const Login = ({ user }: Props) => {
             </Form>
           </div>
         </div>
-      </div>
+
     </>
   );
 };

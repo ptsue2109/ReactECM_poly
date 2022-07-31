@@ -11,15 +11,6 @@ export const AsyncFetchUserList = createAsyncThunk<any[], void, { rejectValue: s
     }
   });
 
-// export const AsyncDeleteUser = createAsyncThunk<any[], string | undefined, { rejectValue: string }>("users/AsyncDeleteUser",
-// async (_id, { rejectWithValue }) => {
-//   try {
-//     const { data } = await removeUser(_id);
-//     return data;
-//   } catch (error: any) {
-//     return rejectWithValue(error.response.data.message);
-//   }
-// });
 export const CreateUsers = createAsyncThunk<any, any, { rejectValue: string }>("users/CreateUsers",
   async (userData, { rejectWithValue }) => {
     try {

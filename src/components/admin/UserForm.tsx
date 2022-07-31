@@ -1,10 +1,7 @@
 import React from 'react'
 import styled from "styled-components";
 import { BsPlus } from "react-icons/bs";
-import { Button, Card, Form, FormInstance, Input, InputNumber, message, Modal, Select, Tabs, Upload } from "antd";
-import { useAppSelector } from '../../app/stores/hooks';
-const { TextArea } = Input;
-const { TabPane } = Tabs;
+import { Button, Card, Form, FormInstance, Input,  message, Modal, Select,  Upload } from "antd";
 
 const UploadCard = styled(Upload)`
     & .ant-upload-select-picture-card:hover {
@@ -81,7 +78,8 @@ const UserForm = ({ fileList, form, onFinish, setFileList, onReset, edit = false
                         <Form.Item label="" style={{ alignItems: "left" }}>
                             <UploadCard beforeUpload={() => false} listType="picture-card" fileList={fileList}
                                 onChange={handleChange} onPreview={handlePreview} >
-                                {fileList.length >= 1 ? null : <BsPlus size={36} fill="#d9d9d9" />}
+                                {fileList === undefined ? <BsPlus size={36} fill="#d9d9d9" /> : (fileList?.length >= 1 ? null :  <BsPlus size={36} fill="#d9d9d9" />)}
+
                             </UploadCard>
                             <Modal visible={previewVisible} footer={null} onCancel={handleCancel}>
                                 <img alt="example" style={{ width: "100%" }} src={previewImage} />
@@ -132,8 +130,8 @@ const UserForm = ({ fileList, form, onFinish, setFileList, onReset, edit = false
                                 </Button>
                             )}
                             <Button
-                                htmlType={fileList.length > 0 ? "submit" : "button"}
-                                onClick={() => fileList.length === 0 && message.error("Vui lòng tải lên ít nhất 1 ảnh")}
+                                htmlType={fileList === undefined ?  "button" : (fileList.length > 0 ? "submit" : "button")}
+                                onClick={() => fileList.length === 0 || fileList === undefined  && message.error("Vui lòng tải lên ít nhất 1 ảnh")}
                                 type="primary"
                                 style={{ minWidth: 150 }}
                             >

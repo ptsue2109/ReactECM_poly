@@ -5,25 +5,32 @@ import { currencyFm } from "../../ultils";
 import { Tabs, Button, Breadcrumb, Card, Rate, Collapse, message, InputNumber } from "antd";
 import { ScrollPanel } from 'primereact/scrollpanel';
 import CardProduct from './../../components/CardProduct';
-import { useAppSelector , useAppDispatch} from './../../app/stores/hooks';
-import { AsyncAddToCart } from "../../app/stores/thunks/orderThunk"
+import { useAppSelector, useAppDispatch } from './../../app/stores/hooks';
+import { userAddCart } from "../../app/stores/slices/orderSlice";
 type Props = {};
 
 const Detail = (props: Props) => {
   const { slug } = useParams();
   const dispatch = useAppDispatch();
   const { products } = useAppSelector(state => state.productReducer);
+  const {userInfo} = useAppSelector(state => state.authReducer)
   const productDetail = products.find((item) => item.slug === slug);
   const [quantity, setQuantity] = React.useState(0)
   document.title = `${productDetail?.name}`;
 
   const addToCart = () => {
-   let productsOrder = {
-    products: {...productDetail},
-    orderQuantity : 1,
-    }
-   dispatch(AsyncAddToCart({products: productsOrder}));
-   message.success('Thêm vào giỏ hàng thành công');
+
+    dispatch(userAddCart({
+      products: {
+        productImage: productDetail?.image[0].url!,
+        productName: productDetail?.name!,
+        cost: productDetail?.cost!,
+        product: productDetail?._id!,
+        price: productDetail?.price!,
+        quantity: 1,
+      }
+    }));
+    message.success('Thêm vào giỏ hàng thành công');
 
   };
   const onChange = (value: number) => {

@@ -12,13 +12,11 @@ const CategoryAdd = (props: Props) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [fileList, setFileList] = React.useState<any[]>([]);
+  document.title = "Admin | Add Cate"
+  pageTitle('Add Category');
 
   const { errorMessage } = useAppSelector((state) => state.cateReducer);
 
-  React.useEffect(() => {
-    document.title = "Admin | Add Cate"
-    pageTitle('Add Category')
-  }, []);
   const onFinish = async (data: any) => {
     data.image= fileList;
     dispatch(AsyncCreateCategories(data)).unwrap()

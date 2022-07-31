@@ -19,7 +19,7 @@ const UserEdit = (props: Props) => {
 
   React.useEffect(() => {
     document.title = `Admin | Edit ${dataSelected?.username}`;
-    pageTitle(`Edit Product`);
+    pageTitle(`Edit User`);
     if (dataSelected) {
       setFileList(dataSelected?.image as any[]);
       form.setFieldsValue({

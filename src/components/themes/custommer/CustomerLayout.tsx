@@ -9,11 +9,11 @@ const CustomerLayout = (props: Props) => {
     <>
       <HeaderCom navBtnStatus={true}/>
       <div className="container mt-3">
-        <div className="mt-5">
+        <div className="mt-5 ">
           <Outlet />
         </div>
       </div>
-      <Footer/>
+      {/* <Footer/> */}
     </>
   );
 };

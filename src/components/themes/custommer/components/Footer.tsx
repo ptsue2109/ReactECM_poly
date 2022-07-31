@@ -8,7 +8,7 @@ const Footer = (props: Props) => {
     return (
         <>
             <Divider />
-            <div className="footer">
+            <div className="footer static bottom-0 left-0 w-full">
                 <div className="bg-red-900 h-3rem text-white flex justify-content-center align-items-center">
                     Created by SUE
                 </div>

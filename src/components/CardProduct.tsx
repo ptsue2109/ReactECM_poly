@@ -7,7 +7,6 @@ import { Empty } from "antd";
 type Props = {};
 
 const CardProduct = ({ data }: any) => {
-  console.log("data", data);
   return (
    
       <div className="flex justify-content-between">

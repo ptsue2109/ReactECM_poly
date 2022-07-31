@@ -7,6 +7,7 @@ import cateReducer from "./slices/cateSlice"
 import homeReducer from "./slices/homeSlice"
 import productReducer from "./slices/productSlice"
 import brandReducer from "./slices/brandSlice"
+import sliderSlice from "./slices/sliderSlice"
 const persistConfig = {
    key: "root", 
    storage,
@@ -19,7 +20,8 @@ const reducers = combineReducers({
     cateReducer,
     homeReducer,
     productReducer,
-    brandReducer
+    brandReducer,
+    sliderSlice
 
 })
 

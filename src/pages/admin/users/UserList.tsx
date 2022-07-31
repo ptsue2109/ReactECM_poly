@@ -24,7 +24,7 @@ const UserList = (props: Props) => {
       key: "image",
       render: (_: any, record: any) => (
         <Link to={`${record?._id}/edit`}>
-          <img width="40px" src={record.image  ?? "https://banner2.cleanpng.com/20180428/sue/kisspng-pittman-animal-hospital-user-computer-icons-avatar-5ae4937a25a0b7.9399757315249294021541.jpg"} alt="" />
+          <img width="40px" src={record?.image } alt="" />
         </Link>
       ),
     },
@@ -81,6 +81,7 @@ const UserList = (props: Props) => {
           </Link>
         </div>
       ),
+     
     },
     {
       title: "Phone",
@@ -115,13 +116,13 @@ const UserList = (props: Props) => {
     },
   ];
 
-  const data: Props[] = users.map((item, index) => {
+  const data: Props[] = users?.map((item, index) => {
     return {
       key: index + 1,
       _id: item?._id,
       username: item?.username,
       email: item?.email,
-      image: item?.image[0]?.url,
+      image: item?.image ? item?.image[0].url : ""  ,
       phoneNumber: item?.phoneNumber,
       address: item?.address,
       role: item?.role
