@@ -6,9 +6,10 @@ import { currencyFm } from "../ultils";
 import { Empty } from "antd";
 type Props = {};
 
-const CardProduct = ({ data }: any) => {
+const CardProduct = ({ data, title }: any) => {
   return (
-   
+    <div className="mb-5  pb-5">
+     {title ? ( <h3 className="mt-5 mb-5 uppercase font-bold ">{title}</h3>) : ''}
       <div className="flex justify-content-between">
         <div className="text-color">
           <Products>
@@ -68,11 +69,11 @@ const CardProduct = ({ data }: any) => {
                 ))}
 
               </>
-            ) :  <Empty />}
+            ) : <Empty />}
           </Products>
         </div>
       </div>
-  
+    </div>
   );
 };
 

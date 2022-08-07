@@ -7,7 +7,6 @@ type Props = {
 
 const Brands = ({ data }: Props) => {
   React.useEffect(() => {
-    console.log("brands", data);
   }, []);
   return (
     <Card >

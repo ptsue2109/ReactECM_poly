@@ -14,13 +14,12 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    clearState: (state) => {
+    clearState: (state: { userInfo: null; isAuthenticated: boolean; accessToken: string; }) => {
       state.userInfo = null;
       state.isAuthenticated = false;
       state.accessToken = "";
-      localStorage.removeItem('authReducer')
     },
-    refreshToken: (state, action) => {
+    refreshToken: (state: { accessToken: any; }, action: { payload: any; }) => {
       state.accessToken = action.payload;
   },
   },

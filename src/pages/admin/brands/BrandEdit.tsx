@@ -12,13 +12,14 @@ const BrandEdit = (props: Props) => {
   const [fileList, setFileList] = React.useState<any>();
 
   const { id } = useParams();
-  const {brands} = useAppSelector(state => state.homeReducer)
-  const brand = brands.find(item => item._id === id);
+  const {brands} = useAppSelector(state => state?.homeReducer)
+  const brand = brands.find(item => item?._id === id);
   console.log(brand);
 
   React.useEffect(() => {
     document.title = `Admin | Edit ${brand?.brandName}`;
     pageTitle(`Edit Categories`);
+    setFileList(brand?.image as any[]);
     form.setFieldsValue({ ...brand });
   }, []);
 

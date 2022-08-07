@@ -2,7 +2,7 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import Footer from "./components/Footer";
 import HeaderCom from "../HeaderCom";
-interface Props { }
+ type Props = {}
 
 const CustomerLayout = (props: Props) => {
   return (
@@ -13,7 +13,7 @@ const CustomerLayout = (props: Props) => {
           <Outlet />
         </div>
       </div>
-      {/* <Footer/> */}
+      <Footer /> 
     </>
   );
 };

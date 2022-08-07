@@ -31,6 +31,8 @@ interface BrandFormProps {
 type Props = {}
 
 const BrandForm = ({ fileList, form, onFinish, setFileList, onReset, edit = false, loading = false }: BrandFormProps) => {
+    console.log('fileList',fileList);
+    
     const [previewImage, setPreviewImage] = React.useState<string>("");
     const [previewVisible, setPreviewVisible] = React.useState<boolean>(false);
     const getBase64 = (file: any) => {
@@ -74,10 +76,6 @@ const BrandForm = ({ fileList, form, onFinish, setFileList, onReset, edit = fals
         setFileList(files);
     };
 
-    const setText = (data: any) => {
-        console.log();
-
-    }
     return (
         <Form layout="vertical" form={form} onFinish={onFinish}>
             <div className="grid">
@@ -85,7 +83,7 @@ const BrandForm = ({ fileList, form, onFinish, setFileList, onReset, edit = fals
                     <>
                         <Form.Item label="Ảnh chi tiết" style={{ alignItems: "left" }}>
                             <UploadCard beforeUpload={() => false} listType="picture-card"  fileList={fileList} onPreview={handlePreview} onChange={handleChange}>
-                                {fileList.length >= 1 ? null : <BsPlus size={36} fill="#d9d9d9" />}
+                            {fileList === undefined ? <BsPlus size={36} fill="#d9d9d9" /> : (fileList?.length >= 1 ? null :  <BsPlus size={36} fill="#d9d9d9" />)}
                             </UploadCard>
                             <Modal visible={previewVisible}  footer={null} onCancel={handleCancel}>
                                 <img alt="example" style={{ width: "100%" }} src={previewImage} />
@@ -113,8 +111,8 @@ const BrandForm = ({ fileList, form, onFinish, setFileList, onReset, edit = fals
                                 </Button>
                             )}
                             <Button
-                                htmlType={fileList.length > 0 ? "submit" : "button"}
-                                onClick={() => fileList.length === 0 && message.error("Vui lòng tải lên ít nhất 1 ảnh")}
+                                htmlType={fileList === undefined ?  "button" : (fileList.length > 0 ? "submit" : "button")}
+                                onClick={() => fileList.length === 0 || fileList === undefined  && message.error("Vui lòng tải lên ít nhất 1 ảnh")}
                                 type="primary"
                                 style={{ minWidth: 150 }}
                             >

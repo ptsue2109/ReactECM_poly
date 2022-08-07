@@ -8,4 +8,3 @@ export const pageTitle = (value: string) => {
   if (!PN) return
   else PN.innerHTML = value;
 };
-

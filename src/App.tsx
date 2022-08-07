@@ -37,10 +37,11 @@ const ProductByCate = React.lazy(() => import("./pages/products/ProductCate"));
 const ProductBrand = React.lazy(() => import('./pages/products/ProductBrand'));
 const ProductListClient = React.lazy(() => import("./pages/products/ProuductList"))
 const CartItem = React.lazy(() => import("./pages/Cart"));
-
+const Checkout = React.lazy(() => import("./pages/Checkout"))
 function App() {
   const dispatch = useAppDispatch();
   const { userInfo } = useAppSelector((state) => state.authReducer);
+  const { carts } = useAppSelector((state) => state.orderSlice);
 
   React.useEffect(() => {
     dispatch(fetchHomeData());
@@ -51,18 +52,18 @@ function App() {
     dispatch(AsyncFetchSliders())
   }, [dispatch]);
 
-
   return (
     <div className="max-w-full overflow-x-hidden">
       <Routes >
-        <Route path="/" element={<CustomerLayout />}>
-          <Route index element={<Home />} />
+        <Route path="/" element={<CustomerLayout  />}>
+          <Route index element={<Home  Footer={true}/>} />
           <Route path="tim-kiem/" element={<Search />} />
           <Route path="products/:slug" element={<Detail />} />
           <Route path="products" element={<ProductListClient />} />
           <Route path="categories/:slug" element={<ProductByCate />} />
           <Route path="brands/:slug" element={<ProductBrand />} />
           <Route path="cart" element={<CartItem />} />
+          <Route path="checkout/:userId" element={<Checkout />}/>
         </Route>
 
         <Route path="admin" element={<AdminLayout />}>

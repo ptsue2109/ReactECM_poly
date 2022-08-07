@@ -16,7 +16,6 @@ const UserEdit = (props: Props) => {
   const { users } = useAppSelector(state => state.userReducer);
   const { id } = useParams();
   const dataSelected = users.find((item) => item._id === id);
-
   React.useEffect(() => {
     document.title = `Admin | Edit ${dataSelected?.username}`;
     pageTitle(`Edit User`);
@@ -29,6 +28,8 @@ const UserEdit = (props: Props) => {
   }, [dataSelected]);
 
   const onFinish = async (data: any) => {
+    console.log('data',data);
+    
     data.image = fileList;
     data._id = id;
     dispatch(UpdateUser(data)).unwrap()

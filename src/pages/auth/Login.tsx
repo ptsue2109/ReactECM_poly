@@ -28,9 +28,8 @@ const Login = ({ user }: Props) => {
     }
   };
 
-  React.useEffect(() => {
     document.title = "LOGIN";
-  }, []);
+
 
   return (
     <>

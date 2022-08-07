@@ -13,9 +13,7 @@ const Sliders = (props: Props) => {
     autoplay: true,
     cssEase: "linear",
   };
-  const { sliders } = useAppSelector((state) => state.homeReducer);
-  console.log(sliders);
-
+  const { sliders } = useAppSelector((state) => state.sliderSlice);
   return (
     <div className="shadow-2  h-full ">
       <Slider {...settings}>

@@ -101,9 +101,6 @@ const UserForm = ({ fileList, form, onFinish, setFileList, onReset, edit = false
                     <Form.Item label="New Password" name="password" rules={[{ required: true, message: "Vui lòng nhập thông tin" }]}>
                         <Input.Password placeholder="Nhập vào" />
                     </Form.Item>
-                    <Form.Item label="Confirm Password" name="re-password" rules={[{ required: true, message: "Vui lòng nhập thông tin" }]}>
-                        <Input.Password placeholder="Nhập vào" />
-                    </Form.Item>
                     <Form.Item label="Status" name="status">
                         <Select>
                             <Select.Option value="active">Active</Select.Option>
@@ -131,7 +128,7 @@ const UserForm = ({ fileList, form, onFinish, setFileList, onReset, edit = false
                             )}
                             <Button
                                 htmlType={fileList === undefined ?  "button" : (fileList.length > 0 ? "submit" : "button")}
-                                onClick={() => fileList.length === 0 || fileList === undefined  && message.error("Vui lòng tải lên ít nhất 1 ảnh")}
+                                onClick={() => fileList?.length === undefined   && message.error("Vui lòng tải lên ít nhất 1 ảnh")}
                                 type="primary"
                                 style={{ minWidth: 150 }}
                             >

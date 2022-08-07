@@ -8,10 +8,11 @@ import homeReducer from "./slices/homeSlice"
 import productReducer from "./slices/productSlice"
 import brandReducer from "./slices/brandSlice"
 import sliderSlice from "./slices/sliderSlice"
+import orderSlice from "./slices/orderSlice"
 const persistConfig = {
    key: "root", 
-   storage,
-   whitelist:["authReducer"],
+   storage: storage,
+   whitelist: ["authReducer","orderSlice"],
 }
 
 const reducers = combineReducers({
@@ -21,7 +22,8 @@ const reducers = combineReducers({
     homeReducer,
     productReducer,
     brandReducer,
-    sliderSlice
+    sliderSlice,
+    orderSlice
 
 })
 

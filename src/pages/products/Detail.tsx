@@ -13,38 +13,30 @@ const Detail = (props: Props) => {
   const { slug } = useParams();
   const dispatch = useAppDispatch();
   const { products } = useAppSelector(state => state.productReducer);
-  const {userInfo} = useAppSelector(state => state.authReducer)
   const productDetail = products.find((item) => item.slug === slug);
-  const [quantity, setQuantity] = React.useState(0)
+  const hasProducts = products.length > 0;
   document.title = `${productDetail?.name}`;
+  const { TabPane } = Tabs;
+  const { Panel } = Collapse;
 
-  const addToCart = () => {
+  const addToCartHandle = () => {
 
     dispatch(userAddCart({
       products: {
+        productURL: `/${productDetail?.slug}`,
         productImage: productDetail?.image[0].url!,
         productName: productDetail?.name!,
-        cost: productDetail?.cost!,
+        productPrice: productDetail?.price!,
+        productCost: productDetail?.cost!,
         product: productDetail?._id!,
         price: productDetail?.price!,
+        cost: productDetail?.cost!,
+        stock: productDetail?.stock!,
         quantity: 1,
-      }
-    }));
+      },
+    }))
     message.success('Thêm vào giỏ hàng thành công');
-
   };
-  const onChange = (value: number) => {
-    console.log('changed', value);
-    setQuantity(value)
-
-  };
-  const { TabPane } = Tabs;
-  const { Panel } = Collapse;
-  const text = `
-  A dog is a type of domesticated animal.
-  Known for its loyalty and faithfulness,
-  it can be found as a welcome guest in many households across the world.
-`;
 
 
   return (
@@ -94,14 +86,30 @@ const Detail = (props: Props) => {
                 <span>163 đánh giá</span>
               </div>
               <div className="flex justify-content-between align-items-center">
-                <div className="flex">
-                  <p className="text-4xl text-red-500 font-bold mt-3">
-                    {currencyFm.format(productDetail?.cost)}
-                  </p>
-                  <p className="text-xl pt-3 pl-5  text-color mt-3 line-through">
-                    {currencyFm.format(productDetail?.cost)}
-                  </p>
-                </div>
+
+                {productDetail && productDetail.price > 0 ? (
+                  <div className="flex">
+                    <p className="text-4xl text-red-500 font-bold mt-3">
+                      {currencyFm.format(productDetail?.cost)}
+                    </p>
+                    <p className="text-xl pt-3 pl-5  text-color mt-3 line-through">
+                      {currencyFm.format(productDetail?.price)}
+                    </p>
+                  </div>
+                ) : (
+                  <div className="flex">
+                    <p className="text-4xl text-red-500 font-bold mt-3">
+                      {currencyFm.format(productDetail?.cost)}
+                    </p>
+                    <p className="text-xl pt-3 pl-5  text-color mt-3 line-through">
+                      {productDetail?.price ? currencyFm.format(productDetail?.price) : ''}
+                    </p>
+                  </div>
+                )}
+
+
+
+
                 <div className="border-primary max-w-7rem">
                   Trả góp chỉ từ 2.350.500₫/tháng
                 </div>
@@ -127,7 +135,7 @@ const Detail = (props: Props) => {
                       <b>Số lượng</b>
                     </label>
                     <br />
-                    <Button type="primary" onClick={addToCart}>
+                    <Button type="primary" onClick={addToCartHandle} disabled={hasProducts ? false : true}>
                       Thêm vào giỏ hàng
                     </Button>
                   </div>
@@ -141,10 +149,8 @@ const Detail = (props: Props) => {
             <div className="DescNCmt  col-12   ">
               <Collapse defaultActiveKey={['1']} >
                 <Panel showArrow={false} header="CHƯƠNG TRÌNH KHUYẾN MÃI" key="panel2">
-                  <p>{text}</p>
                 </Panel>
                 <Panel showArrow={false} prefixCls="true" header="PHƯƠNG THỨC THANH TOÁN" key="panel3">
-                  <p>{text}</p>
                 </Panel>
               </Collapse>
             </div>
