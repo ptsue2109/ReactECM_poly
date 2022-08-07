@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Rate } from "antd";
-import { currencyFm } from "../ultils";
+import { currencyFm,calSalePercent } from "../ultils";
 import { Empty } from "antd";
 type Props = {};
 
@@ -42,15 +42,19 @@ const CardProduct = ({ data, title }: any) => {
                               <p className="product__price--show text-red-600">
                                 {currencyFm.format(item?.cost)}
                               </p>
-                              <p className="product__price--through line-through text-700">
-                                {currencyFm.format(item?.cost)}
+                              {item.price ? (
+                                <p className="product__price--through line-through text-700">
+                                {currencyFm.format(item?.price)}
                               </p>
+                              ) :''}
                             </Products>
 
                             <Promo>
                               Thu cũ đổi mới - Trợ giá đến 300.000đ
                             </Promo>
-                            <PricePercnet>Giảm&nbsp;40%</PricePercnet>
+                           {item.price ? (
+                             <PricePercnet>{ `Giảm  ${calSalePercent(item.cost, item.price)}`}</PricePercnet>
+                           ) : ''}
 
                             <ProductRating>
                               <Rate

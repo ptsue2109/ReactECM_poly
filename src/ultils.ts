@@ -8,3 +8,9 @@ export const pageTitle = (value: string) => {
   if (!PN) return
   else PN.innerHTML = value;
 };
+
+export const calSalePercent = (oldPrice: number, newPrice: number) => {
+  const calc = (oldPrice - newPrice) / oldPrice;
+  const price = Math.round(calc * 100);
+  return price + "%";
+}

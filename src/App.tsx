@@ -58,7 +58,7 @@ function App() {
       <Routes >
         <Route path="/" element={<CustomerLayout />}>
           <Route index element={<Home Footer={true} />} />
-          <Route path="tim-kiem/" element={<Search />} />
+          <Route path="search" element={<Search />} />
           <Route path="products/:slug" element={<Detail />} />
           <Route path="products" element={<ProductListClient />} />
           <Route path="categories/:slug" element={<ProductByCate />} />

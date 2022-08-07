@@ -130,3 +130,33 @@ code {
     }
   }
 }
+.ms-header {
+  &__form-search {
+      max-width: 500px;
+      width: 100%;
+      color: #000;
+      & &-box {
+          display: flex;
+          background-color: #ffffff;
+          border-radius: 3px;
+      }
+      & &-input {
+          height: 34px;
+          width: 100%;
+          outline: none;
+          border: 0;
+          padding: 8px;
+          background-color: transparent;
+      }
+
+      & &-icon {
+          height: 34px;
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+          width: 26px;
+          font-size: 16px;
+      }
+  }
+
+}

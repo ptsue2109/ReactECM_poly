@@ -1,11 +1,14 @@
+import React from "react";
 import styled from "styled-components";
-import { SearchOutlined } from "@ant-design/icons";
-import { Input, Dropdown, Menu, message, MenuProps, Space, Button ,Badge } from "antd";
-import { Link } from "react-router-dom";
+import { Input, Dropdown, Menu, message, MenuProps, Space, Button } from "antd";
+import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/stores/hooks";
 import { topNavArr } from "../../../db.json";
 import { clearState } from "../../app/stores/slices/authSlice";
-import { AiOutlineShoppingCart } from "react-icons/ai";
+import { RiSearchLine } from 'react-icons/ri';
+import { SearchOutlined, UserOutlined } from "@ant-design/icons";
+import { SearchProduct } from "../../app/stores/thunks/productThunk"
+import Search from "./custommer/components/Search";
 interface Props {
   navBtnStatus: boolean;
 }
@@ -13,7 +16,7 @@ interface Props {
 const HeaderCom = ({ navBtnStatus }: Props) => {
   const dispatch = useAppDispatch();
   const { userInfo } = useAppSelector((state) => state.authReducer);
-const carts = useAppSelector((state) => state.orderSlice)
+  const carts = useAppSelector((state) => state.orderSlice);
   const onClick: MenuProps["onClick"] = ({ key }) => {
     if (key == "admin-db") return message.info(`Welcom to  ${key}`);
   };
@@ -22,7 +25,6 @@ const carts = useAppSelector((state) => state.orderSlice)
     dispatch(clearState());
     message.success("Logout success");
   };
-  const submitE = () => { };
 
   const menu = userInfo ? (
     <Menu
@@ -59,6 +61,7 @@ const carts = useAppSelector((state) => state.orderSlice)
       ]}
     />
   );
+
   return (
     <div className="">
       <div className="  flex justify-content-between align-items-center header_color max-h-4rem text-white ">
@@ -72,14 +75,10 @@ const carts = useAppSelector((state) => state.orderSlice)
           </Link>
         </div>
         <div className="flex-1 flex  justify-items-center align-items-center  m-2 px-5 py-3 border-round gap-3">
-          <WrapperInput
-            size="large"
-            placeholder="Enter keyword.."
-            prefix={<SearchOutlined />}
-            onSubmit={submitE}
-          />
+      <Search />
+
         </div>
-        {navBtnStatus == true ? (
+        {navBtnStatus ? (
           <NavBtn>
             <div className="flex-1 flex justify-content-start gap-3 top_nav-button">
               {topNavArr &&
@@ -119,12 +118,6 @@ const carts = useAppSelector((state) => state.orderSlice)
   );
 };
 
-const WrapperInput = styled(Input)`
-  border: none;
-  border-radius: 5px;
-  width: 500px;
-`;
-
 const NavBtn = styled.div`
   .top_nav-button--div {
     border-radius: 5px;
@@ -134,5 +127,4 @@ const NavBtn = styled.div`
     }
   }
 `;
-
 export default HeaderCom;

@@ -19,3 +19,9 @@ export const getAll = async() => {
    const url = `products/update-book/${product._id}`
    return BaseURL.patch(url, product)
 };
+
+export const searchProduct = async (keyword:string | undefined) =>{
+   const url = `/search?q=${keyword}`
+   return BaseURL.post(url, keyword)
+}
+
