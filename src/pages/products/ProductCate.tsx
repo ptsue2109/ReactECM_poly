@@ -17,7 +17,7 @@ const ProductCate = (props: Props) => {
 
   return (
     <>
-      <Card className="w-full mt-5"><CardProduct data={products}/></Card>
+      <Card className="w-full mt-5"><CardProduct data={products} title={`${category?.cateName}`}/></Card>
 
     </>
   )

@@ -17,7 +17,7 @@ const ProductBrand = (props: Props) => {
 
   return (
     <>
-      <Card className="w-full mt-5"><CardProduct data={products} brands={brand}/></Card>
+      <Card className="w-full mt-5"><CardProduct data={products} title={brand?.brandName}/></Card>
 
     </>
   )

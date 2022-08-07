@@ -10,6 +10,7 @@ import { AsyncFetchUserList } from "./app/stores/thunks/userThunk";
 import { AsyncFetchSliders } from "./app/stores/thunks/sliderThunk";
 const CustomerLayout = React.lazy(() => import("./components/themes/custommer/CustomerLayout"));
 const AdminLayout = React.lazy(() => import("./components/themes/admin/AdminLayout"));
+import { PrivateRouter } from "./components/PrivateRoute";
 
 const Home = React.lazy(() => import("./pages/Home"));
 const Search = React.lazy(() => import("./pages/Search"));
@@ -55,18 +56,17 @@ function App() {
   return (
     <div className="max-w-full overflow-x-hidden">
       <Routes >
-        <Route path="/" element={<CustomerLayout  />}>
-          <Route index element={<Home  Footer={true}/>} />
+        <Route path="/" element={<CustomerLayout />}>
+          <Route index element={<Home Footer={true} />} />
           <Route path="tim-kiem/" element={<Search />} />
           <Route path="products/:slug" element={<Detail />} />
           <Route path="products" element={<ProductListClient />} />
           <Route path="categories/:slug" element={<ProductByCate />} />
           <Route path="brands/:slug" element={<ProductBrand />} />
           <Route path="cart" element={<CartItem />} />
-          <Route path="checkout/:userId" element={<Checkout />}/>
+          <Route path="checkout/:userId" element={<Checkout />} />
         </Route>
-
-        <Route path="admin" element={<AdminLayout />}>
+        <Route path="/admin" element={<PrivateRouter roles={["admin"]}><AdminLayout /></PrivateRouter>} >
           <Route index element={<Navigate to="dashboard" />} />
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="products">

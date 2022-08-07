@@ -13,7 +13,9 @@ const CustomerLayout = (props: Props) => {
           <Outlet />
         </div>
       </div>
-      <Footer /> 
+      <div className="mt-5 mb-5 ">
+         <Footer />
+      </div>
     </>
   );
 };

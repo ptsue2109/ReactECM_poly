@@ -130,15 +130,3 @@ code {
     }
   }
 }
-.ant-input-number {
-  width: 75px;
-  & input {
-      margin-left: 7px;
-  }
-  & .ant-input-number-handler-wrap {
-      opacity: 1;
-      & .ant-input-number-handler {
-          height: 15px !important;
-      }
-  }
-}
