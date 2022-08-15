@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { authAsyncLogin } from "../thunks/authThunk";
+import {UpdateUser} from "../thunks/userThunk"
 import { AuthState } from "../../../types/user.type";
 import localStorage from "redux-persist/es/storage";
 
@@ -21,7 +22,7 @@ const authSlice = createSlice({
     },
     refreshToken: (state: { accessToken: any; }, action: { payload: any; }) => {
       state.accessToken = action.payload;
-  },
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(authAsyncLogin.fulfilled, (state, action) => {
@@ -30,7 +31,11 @@ const authSlice = createSlice({
       state.accessToken = action.payload.token;
       state.refreshToken = action.payload.refreshToken;
     });
+    builder.addCase(UpdateUser.fulfilled,(state, action) =>{
+      state.userInfo = action.payload
+    })
   },
+ 
 });
-export const { clearState, refreshToken} = authSlice.actions;
+export const { clearState, refreshToken } = authSlice.actions;
 export default authSlice.reducer;

@@ -10,6 +10,7 @@ import type { MenuProps } from "antd";
 import { Menu } from "antd";
 import { useAppSelector } from './../../app/stores/hooks';
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 interface Props { }
 
 function getItem(
@@ -18,8 +19,7 @@ function getItem(
   icon?: React.ReactNode,
   children?: MenuItem[],
   type?: "group"
-): MenuItem {
-  return {
+): MenuItem { return {
     key,
     icon,
     children,
@@ -30,30 +30,25 @@ function getItem(
 
 
 type MenuItem = Required<MenuProps>["items"][number];
-
-// [
-//   //   getItem("Điện thoại", '1', <MobileOutlined />, []),
-//   //   getItem("Máy tính", "2", <LaptopOutlined />, []),
-//   //   getItem("Laptop", "sub3", <TabletOutlined />, []),
-//   //   getItem("Tai Nghe", "sub4", <BsEarbuds />, []),
-//   //   getItem("Đồng Hồ", "sub5", <BsSmartwatch />, []),
-//   //   getItem("Phụ Kiện", "sub6", <GrPlug />, []),
-
-//   // ];
-
-
 const CustomerMenu = () => {
   const { categories } = useAppSelector(state => state.cateReducer);
   const items: MenuItem[] = categories?.map((itemC: any, index: any) => (
-    getItem(<Link to={`categories/${itemC?.slug}`}>{itemC?.cateName}</Link>, index, <LaptopOutlined />, [])
+    getItem(<Link className="text-color hover:text-red-700" to={`categories/${itemC?.slug}`}>{itemC?.cateName}</Link>, index, <LaptopOutlined />, [])
   ))
   return (
     <Menu
-      style={{ width: 200 }}
+      style={{ width: 200, lineHeight: '10px'  }}
       mode="vertical"
       items={items}
-      className="surface-100"
+      className="surface-100 "
     />)
 }
 
 export default CustomerMenu;
+
+const LinkC = styled(Link)`
+  color: black;
+  :hover{
+    color: red
+  }
+`

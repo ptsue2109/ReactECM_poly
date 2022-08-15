@@ -2,7 +2,7 @@ import React from 'react'
 import { useAppDispatch, useAppSelector } from "../../../app/stores/hooks"
 import { Button, message, Popconfirm, Space, Tag } from "antd";
 import { Link } from "react-router-dom";
-import DataTable from '../../../components/admin/DataTable';
+import DataTable from '../../../components/Form&Table/DataTable';
 import {RemoveSlider} from "../../../app/stores/thunks/sliderThunk"
 
 type Props = {}

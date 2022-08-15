@@ -8,6 +8,7 @@ import { FetchCateList } from "./app/stores/thunks/cateThunk";
 import { ListBrands } from "./app/stores/thunks/brandThunk";
 import { AsyncFetchUserList } from "./app/stores/thunks/userThunk";
 import { AsyncFetchSliders } from "./app/stores/thunks/sliderThunk";
+import { FetchOrderDeletedList, FetchOrderList } from "./app/stores/thunks/orderThunk";
 const CustomerLayout = React.lazy(() => import("./components/themes/custommer/CustomerLayout"));
 const AdminLayout = React.lazy(() => import("./components/themes/admin/AdminLayout"));
 import { PrivateRouter } from "./components/PrivateRoute";
@@ -38,19 +39,26 @@ const ProductByCate = React.lazy(() => import("./pages/products/ProductCate"));
 const ProductBrand = React.lazy(() => import('./pages/products/ProductBrand'));
 const ProductListClient = React.lazy(() => import("./pages/products/ProuductList"))
 const CartItem = React.lazy(() => import("./pages/Cart"));
-const Checkout = React.lazy(() => import("./pages/Checkout"))
+const Checkout = React.lazy(() => import("./pages/Checkout"));
+const OrderList = React.lazy(()=> import("./pages/admin/orders/OrderList"))
+const AdminAddOrder = React.lazy(() => import("./pages/admin/orders/AdminAdOrders"));
+const OrderDeleted = React.lazy(() => import("./pages/admin/orders/OrderDeleted"));
+const OrderDetail = React.lazy(() => import("./pages/admin/orders/OrderDetail"));
+const Profile = React.lazy(() => import("./pages/Profile"))
 function App() {
   const dispatch = useAppDispatch();
   const { userInfo } = useAppSelector((state) => state.authReducer);
-  const { carts } = useAppSelector((state) => state.orderSlice);
-
+  const { carts } = useAppSelector((state) => state.cartSlice);
+  
   React.useEffect(() => {
     dispatch(fetchHomeData());
     dispatch(FetchProductList());
     dispatch(FetchCateList());
     dispatch(ListBrands());
     dispatch(AsyncFetchUserList());
-    dispatch(AsyncFetchSliders())
+    dispatch(AsyncFetchSliders());
+    dispatch(FetchOrderList());
+    dispatch(FetchOrderDeletedList());
   }, [dispatch]);
 
   return (
@@ -65,6 +73,7 @@ function App() {
           <Route path="brands/:slug" element={<ProductBrand />} />
           <Route path="cart" element={<CartItem />} />
           <Route path="checkout/:userId" element={<Checkout />} />
+          <Route path="profile" element={<Profile />} />
         </Route>
         <Route path="/admin" element={<PrivateRouter roles={["admin"]}><AdminLayout /></PrivateRouter>} >
           <Route index element={<Navigate to="dashboard" />} />
@@ -93,6 +102,12 @@ function App() {
             <Route index element={< UserList />} />
             <Route path="add" element={<UserAdd />} />
             <Route path=":id/edit" element={<UserEdit />} />
+          </Route>
+          <Route path="orders">
+            <Route index element={< OrderList />} />
+            <Route path="create" element={<AdminAddOrder />} />
+            <Route path=":orderId/detail" element={<OrderDetail />} />
+            <Route path="deleted" element={<OrderDeleted />} />
           </Route>
         </Route>
         <Route path="/login" element={<Login user={userInfo} />} />

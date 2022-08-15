@@ -88,29 +88,14 @@ const Register = ({ user }: Props) => {
                 </Link>
               </div>
 
-              <Button label="Sign In" icon="pi pi-user" className="w-full" />
-              <div className="">
+              <Button label="Sign In" className="w-full p-button-danger" />
+              <div className="social_auth">
                 <Divider align="center">
                   <div className="inline-flex align-items-center">
-                    <b>OR</b>
+                    <b>Hoặc đăng nhập bằng</b>
                   </div>
                 </Divider>
-                <div className="button-demo">
-                  <div className="template flex justify-content-between">
-                    <Button className="google p-3">
-                      <i className="pi pi-google px-2"></i>
-                      <span className="px-3">Google</span>
-                    </Button>
-                    <Button className="github p-3">
-                      <i className="pi pi-github px-2"></i>
-                      <span className="px-3">Github</span>
-                    </Button>
-                    <Button className="linkedin p-3">
-                      <i className="pi pi-linkedin px-2"></i>
-                      <span className="px-3">linkedin</span>
-                    </Button>
-                  </div>
-                </div>
+                
               </div>
             </Form>
           </div>

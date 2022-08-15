@@ -13,7 +13,7 @@ const CardProduct = ({ data, title }: any) => {
       <div className="flex justify-content-between">
         <div className="text-color">
           <Products>
-            {data ? (
+            {data && data.length ? (
               <>
                 {data.map((item: any, index: any) => (
                   <ProductInfo key={index}>
@@ -73,7 +73,7 @@ const CardProduct = ({ data, title }: any) => {
                 ))}
 
               </>
-            ) : <Empty />}
+            ) : <Empty  />}
           </Products>
         </div>
       </div>

@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Form, Button } from "antd";
 import { pageTitle } from '../../../ultils';
-import BrandForm from "../../../components/admin/BrandForm";
+import BrandForm from "../../../components/Form&Table/BrandForm";
 import { useAppSelector } from "../../../app/stores/hooks";
 interface Props { }
 

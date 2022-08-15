@@ -1,111 +1,106 @@
-import { AsyncAddToCart } from "../thunks/orderThunk";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
+import { AsyncAddToCart, FetchOrderList, ChangeStatusOrder, FetchOrderDeletedList ,SoftDel,Restore,UserOrderList} from "../thunks/orderThunk";
 
-export type ProductCartType = {
-  productName: string;
-  productImage: string;
-  productPrice: number;
-  productCost: number;
-  productURL: string;
-  product: string;
-  quantity: number;
-  price: number;
-  cost: number;
-  stock:number
-};
 
-type CartType = {
-  [x: string]: any;
-  products: ProductCartType[];
-  totalPrice: number;
-};
-
-type CartFormType = {
-  products: ProductCartType;
-};
-
-type CartState = {
-  [x: string]: any;
-  length: any;
-  carts: CartType;
-};
-
-const initialState: CartState = {
-  carts: {
-    products: [],
-    totalPrice: 0,
-  },
-  length: undefined
-};
-
+type OrderState = {
+  orders: any[],
+  userOrder:any[],
+  orderDeleted: any[],
+  isFetching: boolean;
+  isSucess: boolean;
+  isErr: boolean;
+  errorMessage: string | undefined;
+}
+const initialState: OrderState = {
+  orders: [],
+  orderDeleted: [],
+  userOrder:[],
+  isFetching: false,
+  isSucess: false,
+  isErr: false,
+  errorMessage: "",
+}
 const orderSlice = createSlice({
-  name: "carts",
+  name: "orders",
   initialState,
-  reducers: {
-    userAddCart: (state: any, action: PayloadAction<CartFormType>) => {
-      let itemIndex: any = state.carts.products?.findIndex(
-        (item: any) => item.product === action.payload.products.product
-      );
-      if (itemIndex! > -1) {
-        console.log("nwe cart");
+  reducers: {},
+  extraReducers: (builder) => {
+    //list all orders
+    builder.addCase(FetchOrderList.pending, (state) => {
+      state.isFetching = true;
+    });
+    builder.addCase(FetchOrderList.fulfilled, (state, action) => {
+      state.isFetching = false;
+      state.orders = action.payload;
+    });
+    builder.addCase(FetchOrderList.rejected, (state, action) => {
+      state.isFetching = false;
+      state.errorMessage = action.payload;
+    });
 
-        let productItem = state.carts.products[itemIndex];
-        productItem.quantity += action.payload.products.quantity;
-        productItem.cost = productItem.quantity * productItem.productCost;
-        productItem.price = productItem.quantity * productItem.productPrice;
-        state.carts.products[itemIndex] = productItem;
-      } else {
-        state.carts.products?.push({ ...action.payload.products });
-      }
+    //list all deleted ordẻ
+    builder.addCase(FetchOrderDeletedList.fulfilled, (state, action) => {
+      state.isFetching = false;
+      state.orderDeleted = action.payload;
+    });
 
-      let cartTotal = 0;
-      state.carts.products?.forEach((item: { cost: number; price: number }) => {
-        if (item.cost > 0) {
-          cartTotal += item.cost;
-        } else {
-          cartTotal += item.price;
-        }
+    //softDelete
+    builder.addCase(SoftDel.pending, (state, action) => {
+      state.isFetching = true;
+    });
+    builder.addCase(SoftDel.fulfilled, (state, action) => {
+      state.isFetching = false;
+      state.orders =  state.orders.filter(p => p._id !== action.meta.arg);
+      state.orderDeleted.push(...action.payload);
+    });
+    builder.addCase(SoftDel.rejected, (state, action) => {
+      state.isFetching = false;
+      state.errorMessage = action.payload;
+    });
+    //create
+    builder.addCase(AsyncAddToCart.pending, (state, action) => {
+      state.isFetching = true;
+      state.isSucess = false;
+      state.isErr = false;
+    });
+    builder.addCase(AsyncAddToCart.fulfilled, (state, action) => {
+      state.isFetching = false;
+      state.isSucess = true;
+      state.isErr = false;
+      state.orders.push(action.payload);
+    });
+    builder.addCase(AsyncAddToCart.rejected, (state, action) => {
+      state.isFetching = false;
+      state.isSucess = false;
+      state.isErr = true;
+      state.errorMessage = action.payload;
+    });
+    //changeStatus
+    builder.addCase(ChangeStatusOrder.pending, (state) => {
+      state.isFetching = true;
+    });
+    builder.addCase(ChangeStatusOrder.fulfilled, (state, action) => {
+      state.isFetching = false;
+      state.orders = action.payload
+    });
+    builder.addCase(ChangeStatusOrder.rejected, (state, action) => {
+      state.isFetching = false;
+      state.errorMessage = action.payload;
+    });
+    //restore
+    builder.addCase(Restore.fulfilled, (state, action) => {
+      state.isFetching = false;
+      state.orderDeleted = state.orderDeleted.filter(p => p._id !== action.meta.arg);
+      state.orders.push(...action.payload);
+      
+    });
+    //userOrdeList
+    builder.addCase(UserOrderList.fulfilled, (state, action) => {
+      state.isFetching = false;
+      state.userOrder = action.payload;
+    });
+  } 
 
-        state.carts.totalPrice = cartTotal;
-      });
-    },
-    removeCartItem: (state: any, action: PayloadAction<CartFormType>) => {
-      state.carts.products = state.carts.products.filter((_: any, index: any) => index !== action.payload);
-      let cartTotal = 0;
-      state.carts.products.forEach((item:any) => {
-          if ((item.cost !== undefined || item.cost === null) && item.cost > 0) {
-              cartTotal += item.cost;
-          } else {
-              cartTotal += item.price;
-          }
-      });
-      state.carts.totalPrice = cartTotal;
-    },
-    changeCartQuantity: (state: any, action: PayloadAction<{ quantity: any; index: any }>) => {
-      state.carts.products = state.carts.products.map((item: any, index: any) => {
-        if (index === action.payload.index) {
-          item.quantity = action.payload.quantity;
-          item.cost = item.quantity * item.productCost;
-          item.price = item.quantity * item.productPrice;
-        }
-        return item;
-      });
-
-      let cartTotal = 0;
-      state.carts.products.forEach((item: any) => {
-        if ((item.cost !== undefined || item.cost === null) && item.cost > 0) {
-          cartTotal += item.cost;
-        } else {
-          cartTotal += item.price;
-        }
-      });
-      state.carts.totalPrice = cartTotal;
-    },
-  
-
-  },
-
-  extraReducers(_builder) { },
 });
-export const { userAddCart, removeCartItem ,changeCartQuantity} = orderSlice.actions;
+
 export default orderSlice.reducer;

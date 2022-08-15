@@ -37,10 +37,10 @@ export const BoxItem = styled.div`
 `;
 
 export const BoxImage = styled.img`
-  max-width: 200px;
-  min-width: 200px;
-  max-height: 200px;
-  min-height: 200px;
+  max-width: 150px;
+  min-width: 150px;
+  max-height: 150px;
+  min-height: 150px;
   border-style: none;
   vertical-align: middle;
   object-fit: contain;
@@ -58,6 +58,8 @@ export const BoxContent = styled.div`
   .price {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
+    max-width: 230px;
     gap: 15px;
     &-old {
       color: #d70018;

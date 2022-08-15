@@ -6,7 +6,7 @@ import { Tabs, Button, Breadcrumb, Card, Rate, Collapse, message, InputNumber } 
 import { ScrollPanel } from 'primereact/scrollpanel';
 import CardProduct from './../../components/CardProduct';
 import { useAppSelector, useAppDispatch } from './../../app/stores/hooks';
-import { userAddCart } from "../../app/stores/slices/orderSlice";
+import { userAddCart } from "../../app/stores/slices/cartSlice";
 type Props = {};
 
 const Detail = (props: Props) => {

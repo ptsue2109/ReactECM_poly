@@ -1,7 +1,7 @@
 import { Button, message, Popconfirm, Space, Table, Tag } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
-import TableCustom from "../../../components/admin/DataTable";
+import TableCustom from "../../../components/Form&Table/DataTable";
 import { pageTitle } from "../../../ultils";
 import { useAppDispatch, useAppSelector } from "./../../../app/stores/hooks";
 import { RemoveCate} from "../../../app/stores/thunks/cateThunk"

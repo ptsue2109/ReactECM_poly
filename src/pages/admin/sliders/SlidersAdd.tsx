@@ -2,7 +2,7 @@ import React from 'react'
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Button, message } from "antd";
 import { pageTitle } from '../../../ultils'
-import SliderForm from './../../../components/admin/SliderForm';
+import SliderForm from '../../../components/Form&Table/SliderForm';
 import { useAppDispatch, useAppSelector } from './../../../app/stores/hooks';
 import { CreateSliders } from "../../../app/stores/thunks/sliderThunk"
 type Props = {}

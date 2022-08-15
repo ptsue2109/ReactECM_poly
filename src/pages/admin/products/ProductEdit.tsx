@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Button, Form, message } from "antd";
-import ProductForm from "../../../components/admin/ProductForm";
+import ProductForm from "../../../components/Form&Table/ProductForm";
 import { pageTitle } from "../../../ultils";
 import { useAppDispatch, useAppSelector } from './../../../app/stores/hooks';
 import { AsyncUpdateProduct } from "../../../app/stores/thunks/productThunk"
@@ -12,10 +12,13 @@ const ProductEdit = (props: Props) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [fileList, setFileList] = React.useState<any[]>([]);
-
-  const { products } = useAppSelector(state => state.productReducer);
+  const [textEditor, setTextEditor] = React.useState();
+  console.log('textEditor',textEditor);
+  
+  const { products, isFetching } = useAppSelector(state => state.productReducer);
   const { id } = useParams();
   const product = products.find((item) => item._id === id);
+  console.log('product',product);
   
   React.useEffect(() => {
     document.title = `Admin | Edit ${product?.name}`;
@@ -25,7 +28,7 @@ const ProductEdit = (props: Props) => {
       form.setFieldsValue({
         ...product,
         categoryId: product.categoryId && product.categoryId._id,
-        brandId: product.brandId && product.brandId._id,
+        brandId: product.brandId && product.brandId._id
       });
     }
   }, [product]);
@@ -33,6 +36,7 @@ const ProductEdit = (props: Props) => {
   const onFinish = async (data: any) => {
     data.image = fileList;
     data._id = id;
+    // data.desc = textEditor;
     dispatch(AsyncUpdateProduct(data)).unwrap()
       .then(() => { message.success("Update product success", 2, () => { navigate("/admin/products") }) })
       .catch((error) => message.error(error.message));
@@ -55,6 +59,9 @@ const ProductEdit = (props: Props) => {
         setFileList={setFileList}
         onReset={onReset}
         edit={true}
+        textEditor={textEditor}
+        setTextEditor={setTextEditor}
+        loading= {isFetching}
       />
     </div>
   );

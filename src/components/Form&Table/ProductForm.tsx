@@ -3,21 +3,10 @@ import styled from "styled-components";
 import { BsPlus } from "react-icons/bs";
 import { Button, Card, Form, FormInstance, Input, InputNumber, message, Modal, Select, Tabs, Upload } from "antd";
 import { useAppSelector } from '../../app/stores/hooks';
+import { Editor } from 'primereact/editor';
 const { TextArea } = Input;
 const { TabPane } = Tabs;
 
-const UploadCard = styled(Upload)`
-    & .ant-upload-select-picture-card:hover {
-        border-color: var(--ant-primary-color);
-    }
-    svg {
-        fill: #d9d9d9;
-        transition: fill 200ms ease;
-    }
-    & span:hover svg {
-        fill: var(--ant-primary-color);
-    }
-`;
 
 
 interface ProductFormProps {
@@ -28,14 +17,16 @@ interface ProductFormProps {
     onReset?: () => void;
     edit?: boolean;
     loading?: boolean;
+    textEditor:any;
+    setTextEditor: any
 }
 
-const ProductForm = ({ fileList, form, onFinish, setFileList, onReset, edit = false, loading = false }: ProductFormProps) => {
+const ProductForm = ({ fileList, form, onFinish, setFileList, onReset,textEditor, setTextEditor, edit = false, loading = false }: ProductFormProps) => {
     const { brands, categories } = useAppSelector(state => state.homeReducer)
-
     const [previewImage, setPreviewImage] = React.useState<string>("");
     const [previewVisible, setPreviewVisible] = React.useState<boolean>(false);
-
+    console.log('textEditortextEditor',textEditor);
+    
     const getBase64 = (file: any) => {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
@@ -94,8 +85,8 @@ const ProductForm = ({ fileList, form, onFinish, setFileList, onReset, edit = fa
                     <Form.Item label="Tên sản phẩm" name="name" rules={[{ required: true, message: "Vui lòng nhập thông tin" }]}>
                         <Input placeholder="Nhập vào" />
                     </Form.Item>
-                    <Form.Item label="Mô tả" name="desc" rules={[{ required: true, message: "Vui lòng nhập thông tin" }]}>
-                        <TextArea rows={4} placeholder="Nhập vào" showCount maxLength={255} />
+                    <Form.Item label="Mô tả" name="desc">
+                        <Editor  style={{ height: '120px' }} value={textEditor}  onTextChange={(e:any) => setTextEditor(e.htmlValue)}  />
                     </Form.Item>
                 </Card>
 
@@ -162,3 +153,16 @@ const ProductForm = ({ fileList, form, onFinish, setFileList, onReset, edit = fa
 }
 
 export default ProductForm
+
+const UploadCard = styled(Upload)`
+    & .ant-upload-select-picture-card:hover {
+        border-color: var(--ant-primary-color);
+    }
+    svg {
+        fill: #d9d9d9;
+        transition: fill 200ms ease;
+    }
+    & span:hover svg {
+        fill: var(--ant-primary-color);
+    }
+`;

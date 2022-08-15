@@ -4,7 +4,7 @@ import { Form, Button } from "antd";
 import { pageTitle } from '../../../ultils';
 import { useAppSelector } from "../../../app/stores/hooks";
 
-import CateForm from "../../../components/admin/CateForm";
+import CateForm from "../../../components/Form&Table/CateForm";
 interface Props { }
 
 const CateEdit = (props: Props) => {

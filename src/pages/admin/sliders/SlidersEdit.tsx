@@ -4,7 +4,7 @@ import { Button, Form, message } from "antd";
 import { pageTitle } from "../../../ultils";
 import { useAppDispatch, useAppSelector } from './../../../app/stores/hooks';
 import { UpdateSlider } from "../../../app/stores/thunks/sliderThunk"
-import SliderForm from "../../../components/admin/SliderForm";
+import SliderForm from "../../../components/Form&Table/SliderForm";
 
 type Props = {}
 

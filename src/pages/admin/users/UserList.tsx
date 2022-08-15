@@ -2,21 +2,16 @@ import { Button, message, Popconfirm, Space, Table, Tag } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
 import { pageTitle } from "../../../ultils";
-import {  AsyncDeleteUser } from "../../../app/stores/thunks/userThunk";
+import { AsyncDeleteUser } from "../../../app/stores/thunks/userThunk";
 import { useAppDispatch, useAppSelector } from './../../../app/stores/hooks';
-import TableCustom from "../../../components/admin/DataTable";
+import TableCustom from "../../../components/Form&Table/DataTable";
 type Props = {};
 
 const UserList = (props: Props) => {
   const dispatch = useAppDispatch();
   const { users, errorMessage } = useAppSelector(state => state.userReducer);
-  console.log('userList',users);
-  
-  React.useEffect(() => {
-    document.title = "Admin | Users";
-    pageTitle("Danh sách người dùng")
-
-  }, []);
+  document.title = "Admin | Users";
+  pageTitle("Danh sách người dùng")
   const columnUserList: any = [
     {
       title: "IMAGE",
@@ -24,7 +19,7 @@ const UserList = (props: Props) => {
       key: "image",
       render: (_: any, record: any) => (
         <Link to={`${record?._id}/edit`}>
-          <img width="40px" src={record?.image } alt="" />
+          <img width="40px" src={record?.image} alt="" />
         </Link>
       ),
     },
@@ -53,7 +48,7 @@ const UserList = (props: Props) => {
           color={status == "active" ? "red" : "blue"}
           key={status >= "active" ? "red" : "blue"}
         >
-          {status == "active" ?  "inactive": "active" }
+          {status == "active" ? "inactive" : "active"}
         </Tag>
       ),
     },
@@ -81,7 +76,7 @@ const UserList = (props: Props) => {
           </Link>
         </div>
       ),
-     
+
     },
     {
       title: "Phone",
@@ -122,7 +117,7 @@ const UserList = (props: Props) => {
       _id: item?._id,
       username: item?.username,
       email: item?.email,
-      image: item?.image ? item?.image[0].url : ""  ,
+      image: item?.image ? item?.image[0].url : "",
       phoneNumber: item?.phoneNumber,
       address: item?.address,
       role: item?.role

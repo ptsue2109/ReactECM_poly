@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Button, message } from "antd";
-import ProductForm from "../../../components/admin/ProductForm";
+import ProductForm from "../../../components/Form&Table/ProductForm";
 import { pageTitle } from "../../../ultils";
 import { useAppDispatch, useAppSelector } from "./../../../app/stores/hooks";
 import { AsyncCreateProduct } from "../../../app/stores/thunks/productThunk";
@@ -12,7 +12,10 @@ const ProductAdd = (props: Props) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [fileList, setFileList] = React.useState<any[]>([]);
+  const [textEditor, setTextEditor] = React.useState();
+
   const { errorMessage } = useAppSelector((state) => state.productReducer);
+
   React.useEffect(() => {
     document.title = "Admin | Add Product";
     pageTitle("Thêm sản phẩm");
@@ -20,6 +23,10 @@ const ProductAdd = (props: Props) => {
 
   const onFinish = (data: any) => {
     data.image = fileList;
+     data.desc = textEditor;
+
+    console.log('data',data);
+    
     dispatch(AsyncCreateProduct(data)).unwrap()
       .then(() => {
         message.success("Add product success", 2, () => {
@@ -45,6 +52,8 @@ const ProductAdd = (props: Props) => {
         fileList={fileList}
         setFileList={setFileList}
         onReset={onReset}
+        textEditor={textEditor}
+        setTextEditor={setTextEditor}
       />
     </div>
   );

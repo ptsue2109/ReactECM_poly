@@ -24,17 +24,16 @@ export const AsyncCreateProduct = createAsyncThunk<any, any, { rejectValue: stri
   });
 
 
-export const AsyncDeleteProduct = createAsyncThunk<any, string, { rejectValue: string }>
-  ("products/AsyncDeleteProduct", async (_id, { rejectWithValue }) => {
+export const AsyncDeleteProduct = createAsyncThunk<any, any, { rejectValue: string }>("products/AsyncDeleteProduct", 
+  async (_id, { rejectWithValue }) => {
     try {
       const { data } = await removeProduct(_id);
-      console.log('item deleted', data);
       return data;
     } catch (error: any) {
-      console.log('errorMessage ', error);
       return rejectWithValue(error);
     }
   });
+
 
 export const AsyncUpdateProduct = createAsyncThunk<any, any, { rejectValue: string }>("products/AsyncUpdateProduct",
   async (productData, { rejectWithValue }) => {

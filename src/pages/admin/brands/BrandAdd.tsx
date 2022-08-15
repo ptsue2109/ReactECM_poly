@@ -2,7 +2,7 @@ import React from 'react'
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Button } from "antd";
 import { pageTitle } from '../../../ultils'
-import BrandForm from '../../../components/admin/BrandForm';
+import BrandForm from '../../../components/Form&Table/BrandForm';
 import { useAppDispatch, useAppSelector } from './../../../app/stores/hooks';
 import { AsyncCreateBrand } from "../../../app/stores/thunks/brandThunk"
 

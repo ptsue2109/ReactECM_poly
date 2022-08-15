@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Button, message } from "antd";
-import UserForm from "../../../components/admin/UserForm";
+import UserForm from "../../../components/Form&Table/UserForm";
 import { pageTitle } from "../../../ultils";
 import { useAppDispatch, useAppSelector } from "./../../../app/stores/hooks";
 import { CreateUsers } from "../../../app/stores/thunks/userThunk";

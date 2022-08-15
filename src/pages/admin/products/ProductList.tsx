@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Space, Table, Tag, Popconfirm, message } from "antd";
 import { currencyFm, pageTitle } from "../../../ultils";
-import TableCustom from "../../../components/admin/DataTable";
+import TableCustom from "../../../components/Form&Table/DataTable";
 import { useAppSelector, useAppDispatch } from "../../../app/stores/hooks";
 import {
   AsyncDeleteProduct,

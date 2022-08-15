@@ -20,6 +20,9 @@ code {
     monospace;
 }
 
+.default_color{
+  background-color: rgba(255, 66, 78, 1);
+}
 .topnav_socialBtn {
   color: aliceblue;
 }
@@ -159,4 +162,7 @@ code {
       }
   }
 
+}
+.ant-message {
+  z-index: 99999;
 }

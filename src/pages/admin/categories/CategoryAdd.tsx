@@ -2,7 +2,7 @@ import React from 'react'
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Button, message } from "antd";
 import { pageTitle } from '../../../ultils'
-import CateForm from './../../../components/admin/CateForm';
+import CateForm from '../../../components/Form&Table/CateForm';
 import { useAppDispatch, useAppSelector } from './../../../app/stores/hooks';
 import {AsyncCreateCategories} from "../../../app/stores/thunks/cateThunk"
 type Props = {}

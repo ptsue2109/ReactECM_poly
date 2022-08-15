@@ -46,9 +46,9 @@ const items: MenuItem[] = [
     getItem(<Link to="/admin/categories/add"> Thêm danh mục</Link>, "8"),
   ]),
   getItem("Quản lí đơn hàng", "sub5", <ShoppingOutlined />, [
-    getItem(<Link to="/admin/order"> Danh sách đơn hàng</Link>, "9"),
-    getItem(<Link to="/admin/order/add">Danh sách đơn hủy</Link>, "10"),
-    getItem(<Link to="/admin/order/add"> Thêm đơn hàng</Link>, "11"),
+    getItem(<Link to="/admin/orders"> Danh sách đơn hàng</Link>, "9"),
+    getItem(<Link to="/admin/orders/create">Thêm đơn hàng </Link>, "10"),
+    getItem(<Link to="/admin/orders/deleted">Danh sách đơn hủy</Link>, "11"),
   ]),
   getItem("Quản lí slider", "sub6", <PictureOutlined />, [
     getItem(<Link to="/admin/sliders"> Danh sách slider</Link>, "12"),

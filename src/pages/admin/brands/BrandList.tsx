@@ -3,7 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { pageTitle } from "../../../ultils";
 import { useAppSelector, useAppDispatch } from '../../../app/stores/hooks';
-import DataTable from './../../../components/admin/DataTable';
+import DataTable from '../../../components/Form&Table/DataTable';
 type Props = {};
 
 const BrandsList: any = [

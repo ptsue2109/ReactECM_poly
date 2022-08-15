@@ -4,7 +4,7 @@ import { Button, Form, message } from "antd";
 import { pageTitle } from "../../../ultils";
 import { useAppDispatch, useAppSelector } from './../../../app/stores/hooks';
 import { UpdateUser } from "../../../app/stores/thunks/userThunk"
-import UserForm from "../../../components/admin/UserForm";
+import UserForm from "../../../components/Form&Table/UserForm";
 interface Props { }
 
 const UserEdit = (props: Props) => {

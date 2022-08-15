@@ -16,7 +16,7 @@ interface Props {
 const HeaderCom = ({ navBtnStatus }: Props) => {
   const dispatch = useAppDispatch();
   const { userInfo } = useAppSelector((state) => state.authReducer);
-  const carts = useAppSelector((state) => state.orderSlice);
+  const carts = useAppSelector((state) => state.cartSlice);
   const onClick: MenuProps["onClick"] = ({ key }) => {
     if (key == "admin-db") return message.info(`Welcom to  ${key}`);
   };
@@ -31,7 +31,7 @@ const HeaderCom = ({ navBtnStatus }: Props) => {
       onClick={onClick}
       items={[
         {
-          label: "Profile",
+          label: <Link to="/profile">Profile</Link>,
           key: "1",
         },
         userInfo?.role == "admin"
