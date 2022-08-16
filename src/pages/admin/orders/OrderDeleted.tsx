@@ -3,12 +3,13 @@ import { Button, message, Popconfirm, Select, Space } from "antd";
 import { Link } from "react-router-dom";
 import TableCustom from "../../../components/Form&Table/DataTable";
 import { useAppSelector, useAppDispatch } from "../../../app/stores/hooks";
-import { currencyFm } from "../../../ultils";
+import { currencyFm, pageTitle } from "../../../ultils";
 import { Restore } from "../../../app/stores/thunks/orderThunk";
 interface OrderDeletedProps { }
 
 const OrderDeleted = (props: OrderDeletedProps) => {
   const { orderDeleted, isFetching } = useAppSelector((state) => state.orderSlice);
+  pageTitle("Đơn đã xóa");
   const dispatch = useAppDispatch();
   const restore = (orderId: string) => {
     dispatch(Restore(orderId));

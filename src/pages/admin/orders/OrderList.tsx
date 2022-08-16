@@ -4,16 +4,18 @@ import { BiPlusMedical } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import TableCustom from "../../../components/Form&Table/DataTable";
 import { useAppDispatch, useAppSelector } from "../../../app/stores/hooks";
-import { currencyFm } from "../../../ultils";
+import { currencyFm, pageTitle } from "../../../ultils";
 import { ChangeStatusOrder, SoftDel } from "../../../app/stores/thunks/orderThunk";
 interface OrdersListProps { }
 
 const OrdersList = (props: OrdersListProps) => {
   const { orders, isErr, errorMessage, isFetching, isSucess } = useAppSelector(state => state.orderSlice);
+  const [status, setStatus] = React.useState();
+  pageTitle("Danh sách đơn hàng");
+
   const dispatch = useAppDispatch();
-  const changeStatus = (status: any, record:any) => {
-    console.log({_id:record, status:status});
-    ChangeStatusOrder({_id:record, status:status})
+  const changeStatus = (values: any, record:any) => {
+    console.log(values, record);
   };
 
   const handleDeleteOrder = (orderId: string) => {
@@ -24,27 +26,28 @@ const OrdersList = (props: OrdersListProps) => {
     {
       title: "Mã đơn hàng",
       dataIndex: "orderCode",
-      width: 120,
-    },
-    {
-      title: "userId",
-      dataIndex: "users",
-      render: (users: any) => <Link to={`/admin/users/${users?._id}/edit`} >{users?._id ?? ''}</Link>
+      width: 120
     },
     {
       title: "Detail",
       dataIndex: "_id",
       width: 170,
       render: (orderId: string) => (
-        <Link to={`/admin/orders/${orderId}/detail`}>View</Link>
+        <Link to={`/admin/orders/${orderId}/detail`}>Chi tiết</Link>
       ),
     },
+    {
+      title: "userId",
+      dataIndex: "users",
+      render: (users: any) => <Link to={`/admin/users/${users?._id}/edit`} >{users?._id ?? ''}</Link>
+    },
+   
     {
       title: "Trang thái",
       dataIndex: "status",
       width: 150,
       render: (status: any, record: any) => (
-        <Select value={status}  onChange={(status:string) => changeStatus(status, record._id)}>
+        <Select value={status}  onChange={(values:string) => changeStatus(values, record._id)} >
           <Select.Option value="pending">Chưa xử lí</Select.Option>
           <Select.Option value="confirm">Xác nhận</Select.Option>
           <Select.Option value="shipping">Đang giao</Select.Option>

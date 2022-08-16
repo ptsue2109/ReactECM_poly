@@ -103,7 +103,10 @@ const UserForm = ({ fileList, form, onFinish, setFileList, onReset, edit = false
                         </Card>
 
                         <Card className="col-6">
-                            <Form.Item label="New Password" name="password" rules={[{ required: true, message: "Vui lòng nhập thông tin" }]}>
+                            {/* <Form.Item label="Password" name="password" rules={[{ required: true, message: "Vui lòng nhập thông tin" }]}>
+                                <Input.Password placeholder="Nhập vào" />
+                            </Form.Item> */}
+                            <Form.Item label="New Password" name="newPassword" rules={[{ required: true, message: "Vui lòng nhập thông tin" }]}>
                                 <Input.Password placeholder="Nhập vào" />
                             </Form.Item>
                             <Form.Item label="Status" name="status">
@@ -118,9 +121,7 @@ const UserForm = ({ fileList, form, onFinish, setFileList, onReset, edit = false
                                     <Select.Option value="user">Khach hang</Select.Option>
                                 </Select>
                             </Form.Item>
-                            <Form.Item label="address" name="address" rules={[{ required: true, message: "Vui lòng nhập thông tin" }]}>
-                                <Input placeholder="Nhập vào" />
-                            </Form.Item>
+
 
                         </Card>
                     </>

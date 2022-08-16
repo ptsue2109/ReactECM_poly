@@ -1,10 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { AsyncAddToCart, FetchOrderList, ChangeStatusOrder, FetchOrderDeletedList ,SoftDel,Restore,UserOrderList} from "../thunks/orderThunk";
+import { AsyncAddToCart, FetchOrderList, ChangeStatusOrder, FetchOrderDeletedList, SoftDel, Restore, UserOrderList } from "../thunks/orderThunk";
 
 
 type OrderState = {
   orders: any[],
-  userOrder:any[],
+  userOrder: any[],
+  userOrderDel: any[],
   orderDeleted: any[],
   isFetching: boolean;
   isSucess: boolean;
@@ -14,7 +15,8 @@ type OrderState = {
 const initialState: OrderState = {
   orders: [],
   orderDeleted: [],
-  userOrder:[],
+  userOrder: [],
+  userOrderDel: [],
   isFetching: false,
   isSucess: false,
   isErr: false,
@@ -25,6 +27,7 @@ const orderSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+
     //list all orders
     builder.addCase(FetchOrderList.pending, (state) => {
       state.isFetching = true;
@@ -32,10 +35,6 @@ const orderSlice = createSlice({
     builder.addCase(FetchOrderList.fulfilled, (state, action) => {
       state.isFetching = false;
       state.orders = action.payload;
-    });
-    builder.addCase(FetchOrderList.rejected, (state, action) => {
-      state.isFetching = false;
-      state.errorMessage = action.payload;
     });
 
     //list all deleted ordẻ
@@ -50,13 +49,16 @@ const orderSlice = createSlice({
     });
     builder.addCase(SoftDel.fulfilled, (state, action) => {
       state.isFetching = false;
-      state.orders =  state.orders.filter(p => p._id !== action.meta.arg);
+      state.orders = state.orders.filter(p => p._id !== action.meta.arg);
+      state.userOrder = state.userOrder.filter(p => p._id !== action.meta.arg);
       state.orderDeleted.push(...action.payload);
+
+      //user-delete
+      state.userOrderDel.push(...action.payload)
+      state.userOrderDel = state.userOrderDel.filter(p => p._id !== action.meta.arg);
+      state.userOrderDel.push(...action.payload)
     });
-    builder.addCase(SoftDel.rejected, (state, action) => {
-      state.isFetching = false;
-      state.errorMessage = action.payload;
-    });
+
     //create
     builder.addCase(AsyncAddToCart.pending, (state, action) => {
       state.isFetching = true;
@@ -75,6 +77,7 @@ const orderSlice = createSlice({
       state.isErr = true;
       state.errorMessage = action.payload;
     });
+
     //changeStatus
     builder.addCase(ChangeStatusOrder.pending, (state) => {
       state.isFetching = true;
@@ -83,23 +86,22 @@ const orderSlice = createSlice({
       state.isFetching = false;
       state.orders = action.payload
     });
-    builder.addCase(ChangeStatusOrder.rejected, (state, action) => {
-      state.isFetching = false;
-      state.errorMessage = action.payload;
-    });
+
     //restore
     builder.addCase(Restore.fulfilled, (state, action) => {
       state.isFetching = false;
       state.orderDeleted = state.orderDeleted.filter(p => p._id !== action.meta.arg);
       state.orders.push(...action.payload);
-      
+
     });
+
     //userOrdeList
     builder.addCase(UserOrderList.fulfilled, (state, action) => {
       state.isFetching = false;
-      state.userOrder = action.payload;
+      state.userOrder = action.payload.orders;
+      state.userOrderDel = action.payload.orderDeleted
     });
-  } 
+  }
 
 });
 

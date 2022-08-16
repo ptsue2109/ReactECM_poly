@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { getAllUser, createUser, removeUser, updateUser } from "../../services/user.service";
+import { getAllUser, createUser, removeUser, updateUser,changePW } from "../../services/user.service";
 
 export const AsyncFetchUserList = createAsyncThunk<any[], void, { rejectValue: string }>("users/AsyncFetchUserList",
   async (_, { rejectWithValue }) => {
@@ -35,6 +35,17 @@ export const UpdateUser = createAsyncThunk<any, any, { rejectValue: string }>("u
   async (userData, { rejectWithValue }) => {
     try {
       const { data } = await updateUser(userData);
+      return data;
+    } catch (error: any) {
+      console.log('error', error);
+      return rejectWithValue(error.response.data.message);
+    }
+  });
+
+  export const UpdatePassword = createAsyncThunk<any, any, { rejectValue: string }>("users/UpdatePassword",
+  async (userData, { rejectWithValue }) => {
+    try {
+      const { data } = await changePW(userData);
       return data;
     } catch (error: any) {
       console.log('error', error);

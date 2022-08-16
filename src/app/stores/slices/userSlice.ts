@@ -3,6 +3,7 @@ import {
   AsyncDeleteUser,
   CreateUsers,
   UpdateUser,
+  UpdatePassword
 } from "../thunks/userThunk";
 import { createSlice } from "@reduxjs/toolkit";
 
@@ -86,6 +87,20 @@ const userSlice = createSlice({
       );
     });
     builder.addCase(UpdateUser.rejected, (state, action) => {
+      state.isFetching = false;
+      state.errorMessage = action.payload;
+    });
+    //updatePW
+    builder.addCase(UpdatePassword.pending, (state) => {
+      state.isFetching = true;
+    });
+    builder.addCase(UpdatePassword.fulfilled, (state, action) => {
+      state.isFetching = false;
+      state.users = state.users.map((item) =>
+        item._id !== action.payload._id ? item : action.payload
+      );
+    });
+    builder.addCase(UpdatePassword.rejected, (state, action) => {
       state.isFetching = false;
       state.errorMessage = action.payload;
     });

@@ -16,9 +16,9 @@ export const getAllOrderDeleteted = async() => {
    return BaseURL.get(url);
 }
 
-export const changeOrderStatus = async (record: string, status:any) =>{
+export const changeOrderStatus = async (record: any) =>{
    const url = `/orders/change-status/${record}`;
-   return BaseURL.patch(url, status)
+   return BaseURL.patch(url)
 }
 
 export const softDeleteOrder = async (orderId: string) =>{

@@ -13,7 +13,7 @@ const UserEdit = (props: Props) => {
   const dispatch = useAppDispatch();
   const [fileList, setFileList] = React.useState<any[]>([]);
 
-  const { users } = useAppSelector(state => state.userReducer);
+  const { users ,errorMessage } = useAppSelector(state => state.userReducer);
   const { id } = useParams();
   const dataSelected = users.find((item) => item._id === id);
   React.useEffect(() => {
@@ -34,7 +34,7 @@ const UserEdit = (props: Props) => {
     data._id = id;
     dispatch(UpdateUser(data)).unwrap()
       .then(() => { message.success("Update users success", 2, () => { navigate("/admin/users") }) })
-      .catch((error) => message.error(error.message));
+      .catch(() => message.error(errorMessage));
   };
 
   const onReset = () => {

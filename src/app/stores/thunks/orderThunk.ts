@@ -27,6 +27,7 @@ export const FetchOrderDeletedList = createAsyncThunk<any, void, { rejectValue: 
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await getAllOrderDeleteted();
+      console.log('getAllOrderDeleteted',data);
       return data.orders;
     } catch (error: any) {
       return rejectWithValue(error.response.data.message);
@@ -36,9 +37,9 @@ export const FetchOrderDeletedList = createAsyncThunk<any, void, { rejectValue: 
 
 
 export const ChangeStatusOrder = createAsyncThunk<any, any, { rejectValue: string }>("orders/ChangeStatusOrder",
-  async ({orderId, status}, { rejectWithValue }) => {
+  async (orderId, { rejectWithValue }) => {
     try {
-      const data = await changeOrderStatus(orderId, {status});
+      const data = await changeOrderStatus(orderId);
       console.log('dataStatus', data)
       return data;
     } catch (error: any) {
@@ -51,7 +52,7 @@ export const SoftDel = createAsyncThunk<any, any, { rejectValue: string }>("orde
   async (_id, { rejectWithValue }) => {
     try {
       const { data } = await softDeleteOrder(_id);
-      console.log('data SoftDel',data.orderDel);
+      console.log('data SoftDel',data);
       
       return data.orderDel;
     } catch (error: any) {
@@ -73,7 +74,9 @@ export const Restore = createAsyncThunk<any, any, { rejectValue: string }>("orde
   async (userId, { rejectWithValue }) => {
     try {
       const { data } = await usersOrderList(userId);
-      return data.orders;
+      console.log('all user order', data);
+      
+      return data;
     } catch (error: any) {
       return rejectWithValue(error.response.data.message);
     }

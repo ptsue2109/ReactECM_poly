@@ -18,3 +18,8 @@ export const updateUser = async(data: any) => {
    const url = `/users/update-user/${data._id}`
    return BaseURL.patch(url, data)
 };
+
+export const changePW = async(data: any) => {
+   const url = `/users/update-password/${data._id}`
+   return BaseURL.patch(url, data)
+};
